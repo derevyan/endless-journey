@@ -1,0 +1,63 @@
+{
+  "$schema": "../workflow-schema.json",
+  "id": "wf-memory-agent-001",
+  "key": "memory-agent",
+  "name": "Memory Agent",
+  "description": "Agent with memory tools enabled for testing save/recall functionality.",
+  "status": "active",
+  "configuration": {
+    "nodes": [
+      {
+        "id": "start",
+        "type": "start",
+        "position": { "x": 50, "y": 150 },
+        "data": { "name": "Start" }
+      },
+      {
+        "id": "agent-memory",
+        "type": "agent",
+        "position": { "x": 210, "y": 150 },
+        "data": {
+          "name": "Memory Agent",
+          "systemPrompt": "You are a helpful assistant with memory capabilities.\n\nIMPORTANT: You MUST use the save_memory tool when the user tells you facts about themselves.\nIMPORTANT: You MUST use the recall_memories tool when asked what you remember.\n\nWhen the user tells you something about themselves (name, preferences, facts):\n1. ALWAYS call save_memory with the fact\n2. Acknowledge what you saved\n\nWhen asked \"what do you remember about me?\" or similar:\n1. ALWAYS call recall_memories with a relevant query\n2. Share what you found\n\nBe helpful and conversational.",
+          "llm": {
+            "provider": "google-genai",
+            "model": "gemini-3-flash-preview",
+            "reasoningEffort": "high"
+          },
+          "unifiedTools": {
+            "enabled": [
+              "system:get_user_profile",
+              "system:get_journey_context",
+              "system:exit_to_next_node",
+              "system:save_memory",
+              "system:recall_memories"
+            ]
+          },
+          "history": {
+            "strategy": "simple",
+            "maxMessages": 12
+          }
+        }
+      },
+      {
+        "id": "end",
+        "type": "end",
+        "position": { "x": 500, "y": 150 },
+        "data": { "name": "End" }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-start-agent",
+        "source": "start",
+        "target": "agent-memory"
+      },
+      {
+        "id": "e-agent-end",
+        "source": "agent-memory",
+        "target": "end"
+      }
+    ]
+  }
+}

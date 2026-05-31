@@ -1,0 +1,61 @@
+{
+  "$schema": "../workflow-schema.json",
+  "id": "wf-voice-test-assistant-001",
+  "key": "voice-test-assistant",
+  "name": "Voice Test Assistant",
+  "description": "Voice testing workflow that only exits when user says goodbye.",
+  "status": "active",
+  "configuration": {
+    "nodes": [
+      {
+        "id": "start",
+        "type": "start",
+        "position": { "x": 50, "y": 150 },
+        "data": { "name": "Start" }
+      },
+      {
+        "id": "agent-voice-test",
+        "type": "agent",
+        "position": { "x": 210, "y": 150 },
+        "data": {
+          "name": "Voice Test Agent",
+          "systemPrompt": "You are a friendly conversational assistant for testing voice functionality.\n\nYour role is to:\n- Have natural conversations with users\n- Answer questions, tell jokes, share interesting facts\n- Be warm, engaging and helpful\n- Keep responses concise (1-3 sentences max)\n\n## IMPORTANT: Conversation Flow Rules\n\n1. **Stay in conversation**: Keep talking with the user. Ask follow-up questions. Be curious. Just respond naturally - the system will deliver your message.\n\n2. **Only exit when user says goodbye**: You should ONLY call exit_to_next_node when the user explicitly ends the conversation with phrases like:\n   - \"goodbye\", \"bye\", \"see you\", \"talk later\"\n   - \"I'm done\", \"that's all\", \"end conversation\"\n   - \"thanks, bye\", \"okay bye\"\n\n3. **If user hasn't said goodbye**: Continue the conversation! Ask them what else they'd like to talk about.\n\n4. **When exiting**: Use exit_to_next_node with a friendly farewell as the summary.\n\n## Example Flows\n\nUser: \"What time is it?\"\nYou: Call current_time, then respond with the time. Ask \"Anything else you'd like to know?\"\n\nUser: \"Tell me a joke\"\nYou: Tell a short joke. Ask \"Want to hear another one?\"\n\nUser: \"Okay bye!\"\nYou: Call exit_to_next_node with summary \"Goodbye! It was great chatting with you!\"",
+          "llm": {
+            "provider": "google-genai",
+            "model": "gemini-3-flash-preview",
+            "reasoningEffort": "high"
+          },
+          "unifiedTools": {
+            "enabled": [
+              "system:get_user_profile",
+              "system:exit_to_next_node",
+              "utility:current_time"
+            ]
+          },
+          "history": {
+            "strategy": "simple",
+            "maxMessages": 20
+          }
+        }
+      },
+      {
+        "id": "end",
+        "type": "end",
+        "position": { "x": 500, "y": 150 },
+        "data": { "name": "End" }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-start-agent",
+        "source": "start",
+        "target": "agent-voice-test"
+      },
+      {
+        "id": "e-agent-end",
+        "source": "agent-voice-test",
+        "target": "end"
+      }
+    ]
+  }
+}

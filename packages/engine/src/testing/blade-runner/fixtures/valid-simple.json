@@ -1,0 +1,79 @@
+{
+  "_comment": "A valid, minimal journey that should pass all validations",
+  "nodes": [
+    {
+      "id": "start",
+      "data": {
+        "type": "start",
+        "label": "Welcome",
+        "content": "Welcome to the demo!"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 0 }
+    },
+    {
+      "id": "choice",
+      "data": {
+        "type": "message",
+        "label": "Choose",
+        "content": "Make a choice:",
+        "buttons": [
+          {
+            "id": "btn-continue",
+            "text": "Continue",
+            "targetNodeId": "info"
+          }
+        ],
+        "responseType": "buttons"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 150 }
+    },
+    {
+      "id": "info",
+      "data": {
+        "type": "message",
+        "label": "Info",
+        "content": "Here's some information for you.",
+        "buttons": [
+          {
+            "id": "btn-finish",
+            "text": "Got it!",
+            "targetNodeId": "end"
+          }
+        ],
+        "responseType": "buttons"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 300 }
+    },
+    {
+      "id": "end",
+      "data": {
+        "type": "end",
+        "label": "Goodbye"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 450 }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-start-choice",
+      "source": "start",
+      "target": "choice"
+    },
+    {
+      "id": "edge-choice-info",
+      "source": "choice",
+      "target": "info",
+      "sourceHandle": "btn-continue"
+    },
+    {
+      "id": "edge-info-end",
+      "source": "info",
+      "target": "end",
+      "sourceHandle": "btn-finish"
+    }
+  ]
+}

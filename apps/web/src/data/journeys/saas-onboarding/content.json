@@ -1,0 +1,275 @@
+{
+  "version": "1.0",
+  "content": {
+    "start.label": {
+      "value": "Welcome"
+    },
+    "start.content": {
+      "value": "Welcome to ProductFlow! 🚀\n\nYou've just started your 14-day free trial. Over the next few days, I'll guide you through our key features and help you get the most out of your experience.\n\nLet's start by choosing the plan that best fits your needs."
+    },
+    "feature-intro.label": {
+      "value": "Choose Your Plan"
+    },
+    "feature-intro.content": {
+      "value": "Which plan interests you most? This helps us personalize your trial experience.\n\n💡 Basic: Perfect for individuals and small teams\n⚡ Pro: Advanced features for growing businesses\n🏢 Enterprise: Full suite with dedicated support"
+    },
+    "feature-intro.buttons.0.text": {
+      "value": "💡 Basic"
+    },
+    "feature-intro.buttons.1.text": {
+      "value": "⚡ Pro"
+    },
+    "feature-intro.buttons.2.text": {
+      "value": "🏢 Enterprise"
+    },
+    "feature-intro.plugins.0.steps.0.content": {
+      "value": "Hey! 👋 I noticed you haven't selected a plan yet.\n\nNo pressure—take your time. But choosing a plan helps me show you the features that matter most to you.\n\nWhich one sounds right for your needs?"
+    },
+    "feature-intro.plugins.0.steps.0.buttons.0.text": {
+      "value": "💡 Basic"
+    },
+    "feature-intro.plugins.0.steps.0.buttons.1.text": {
+      "value": "⚡ Pro"
+    },
+    "feature-intro.plugins.0.steps.0.buttons.2.text": {
+      "value": "🏢 Enterprise"
+    },
+    "feature-intro.plugins.0.steps.1.content": {
+      "value": "Still there? 🤔\n\nI know life gets busy. If ProductFlow isn't the right fit right now, no worries at all.\n\nBut if you're still curious, just tap one of the options below and I'll get you started in 2 minutes."
+    },
+    "feature-intro.plugins.0.steps.1.buttons.0.text": {
+      "value": "💡 Basic"
+    },
+    "feature-intro.plugins.0.steps.1.buttons.1.text": {
+      "value": "⚡ Pro"
+    },
+    "feature-intro.plugins.0.steps.1.buttons.2.text": {
+      "value": "🏢 Enterprise"
+    },
+    "feature-intro.plugins.0.steps.1.buttons.3.text": {
+      "value": "❌ Not interested"
+    },
+    "feature-intro.plugins.0.steps.2.content": {
+      "value": "Last check-in before we pause your onboarding.\n\nIf you'd still like to explore ProductFlow, just reply anytime and I'll pick up right where we left off."
+    },
+    "saas-helper-agent.label": {
+      "value": "ProductFlow Assistant"
+    },
+    "saas-helper-agent.welcome.message": {
+      "value": "👋 I'm your ProductFlow Assistant! I can help answer questions about our platform. What would you like to know?"
+    },
+    "needs-assessment.label": {
+      "value": "User Needs Assessment"
+    },
+    "needs-assessment.questions.0.content": {
+      "value": "How would you describe your experience level?"
+    },
+    "needs-assessment.questions.0.buttons.0.text": {
+      "value": "Beginner"
+    },
+    "needs-assessment.questions.0.buttons.1.text": {
+      "value": "Intermediate"
+    },
+    "needs-assessment.questions.0.buttons.2.text": {
+      "value": "Expert"
+    },
+    "needs-assessment.questions.1.content": {
+      "value": "What's your primary goal?"
+    },
+    "needs-assessment.questions.1.buttons.0.text": {
+      "value": "Automate workflows"
+    },
+    "needs-assessment.questions.1.buttons.1.text": {
+      "value": "Engage customers"
+    },
+    "needs-assessment.questions.1.buttons.2.text": {
+      "value": "Provide support"
+    },
+    "needs-assessment.questions.1.buttons.3.text": {
+      "value": "Something else"
+    },
+    "needs-assessment.questions.2.content": {
+      "value": "How large is your team?"
+    },
+    "needs-assessment.questions.2.buttons.0.text": {
+      "value": "Just me"
+    },
+    "needs-assessment.questions.2.buttons.1.text": {
+      "value": "2-10 people"
+    },
+    "needs-assessment.questions.2.buttons.2.text": {
+      "value": "11-50 people"
+    },
+    "needs-assessment.questions.2.buttons.3.text": {
+      "value": "50+ people"
+    },
+    "needs-assessment.introduction.content": {
+      "value": "Great choice! Let's personalize your experience with a few quick questions."
+    },
+    "needs-assessment.completion.content": {
+      "value": "Perfect! We've customized your onboarding based on your answers."
+    },
+    "needs-assessment.plugins.0.steps.0.content": {
+      "value": "Hey! 👋 Still there?\n\nWe're almost done with the quick assessment - just a couple more questions to personalize your experience.\n\nTap any answer to continue!"
+    },
+    "plan-router.label": {
+      "value": "Route by Plan"
+    },
+    "plan-router.branches.0.label": {
+      "value": "Basic"
+    },
+    "plan-router.branches.1.label": {
+      "value": "Pro"
+    },
+    "plan-router.branches.2.label": {
+      "value": "Enterprise"
+    },
+    "basic-tips.label": {
+      "value": "Basic Tips"
+    },
+    "basic-tips.content": {
+      "value": "Great choice! 💡 The Basic plan is perfect for getting started.\n\nHere are 3 features you'll love:\n\n1. 📊 Dashboard Analytics - Track your key metrics at a glance\n2. 📁 Project Templates - Get started fast with pre-built setups\n3. 💬 Team Chat - Collaborate with up to 5 team members\n\nLet me set up your workspace!"
+    },
+    "pro-tips.label": {
+      "value": "Pro Tips"
+    },
+    "pro-tips.content": {
+      "value": "Excellent choice! ⚡ The Pro plan unlocks serious power.\n\nHere's what sets Pro apart:\n\n1. 🔗 Advanced Integrations - Connect with 100+ apps\n2. 📈 Custom Reports - Build exactly the insights you need\n3. 🔒 Advanced Permissions - Fine-grained access control\n4. 🚀 Priority Support - Get help when you need it\n\nTime to supercharge your workflow!"
+    },
+    "enterprise-tips.label": {
+      "value": "Enterprise Tips"
+    },
+    "enterprise-tips.content": {
+      "value": "Welcome to the Enterprise experience! 🏢\n\nYou've unlocked our full suite:\n\n1. 🔐 SSO & SAML - Enterprise-grade security\n2. 📊 Advanced Analytics - Deep insights with AI\n3. 🌍 Multi-region Support - Data residency options\n4. 👤 Dedicated Success Manager - Your personal guide\n5. 🔧 Custom Development - Tailored solutions\n\nI'll connect you with your dedicated account manager shortly!"
+    },
+    "feedback-request.label": {
+      "value": "Quick Feedback"
+    },
+    "feedback-request.content": {
+      "value": "Before we continue, I'd love to hear from you! 💬\n\nWhat's the main challenge you're hoping ProductFlow will help you solve?\n\nJust type your answer below - it helps us personalize your experience!"
+    },
+    "plan-check.label": {
+      "value": "Check Plan Type"
+    },
+    "plan-check.branches.0.label": {
+      "value": "Enterprise"
+    },
+    "plan-check.branches.1.label": {
+      "value": "Standard"
+    },
+    "vip-experience.label": {
+      "value": "VIP Welcome"
+    },
+    "vip-experience.content": {
+      "value": "🌟 **Welcome to the Enterprise VIP Experience!** 🌟\n\nAs an Enterprise customer, you're entitled to premium support:\n\n👤 **Dedicated Success Manager** - Sarah will be your personal guide\n📞 **Priority Hotline** - +1 (800) VIP-FLOW\n🎯 **Custom Onboarding** - Tailored to your organization\n💼 **Executive Briefing** - Quarterly strategy sessions\n\nSarah will reach out within the next 24 hours to schedule your personalized onboarding session!"
+    },
+    "setup-delay.label": {
+      "value": "Setup Period"
+    },
+    "setup-delay.content": {
+      "value": "Waiting for user to explore the platform"
+    },
+    "setup-delay.reason": {
+      "value": "Give user 24 hours to explore the platform and complete initial setup before sending the next engagement message"
+    },
+    "crm-sync.label": {
+      "value": "Sync to CRM"
+    },
+    "crm-sync.content": {
+      "value": "Syncing user engagement data to CRM system"
+    },
+    "conversion-offer.label": {
+      "value": "Conversion Offer"
+    },
+    "conversion-offer.content": {
+      "value": "🎉 You've been exploring ProductFlow for a few days now!\n\nI hope you're finding it useful. Here's a special offer just for you:\n\n✨ **20% OFF** your first 3 months when you upgrade today!\n\nUse code: WELCOME20\n\nReady to unlock the full power of ProductFlow?\n\nYou can also type any questions or concerns below!"
+    },
+    "conversion-offer.buttons.0.text": {
+      "value": "🚀 Upgrade Now"
+    },
+    "conversion-offer.buttons.1.text": {
+      "value": "📞 Talk to Sales"
+    },
+    "conversion-offer.buttons.2.text": {
+      "value": "⏰ Remind Me Later"
+    },
+    "converted.label": {
+      "value": "Converted"
+    },
+    "converted.content": {
+      "value": "🎊 Congratulations! Welcome to ProductFlow!\n\nYour account has been upgraded successfully. Here's what happens next:\n\n1. ✅ Full feature access activated\n2. 📧 Welcome email with resources sent\n3. 📅 Onboarding call scheduled\n\nThank you for choosing us. We're excited to help you succeed!"
+    },
+    "exit-graceful.label": {
+      "value": "Graceful Exit"
+    },
+    "exit-graceful.content": {
+      "value": "No worries! 👋\n\nThank you for trying ProductFlow. If your needs change or you have questions in the future, we're always here.\n\nHere are some resources you can access anytime:\n📚 Knowledge Base: help.productflow.com\n📺 YouTube Tutorials: youtube.com/@productflow\n\nWishing you success in your endeavors!"
+    },
+    "churned.label": {
+      "value": "Churned"
+    },
+    "churned.content": {
+      "value": "We noticed you haven't been active lately. 😔\n\nYour trial has ended, but your data is safe with us for 30 days.\n\nIf you'd like to pick up where you left off, just reply to this message or visit productflow.com/reactivate.\n\nTake care!"
+    },
+    "e-start-feature.label": {
+      "value": "Begin"
+    },
+    "e-agent-assessment.label": {
+      "value": "Continue"
+    },
+    "e-assessment-router.label": {
+      "value": "Survey Complete"
+    },
+    "e-assessment-timeout.label": {
+      "value": "Timeout"
+    },
+    "e-router-basic.label": {
+      "value": "Basic Plan"
+    },
+    "e-router-pro.label": {
+      "value": "Pro Plan"
+    },
+    "e-router-enterprise.label": {
+      "value": "Enterprise Plan"
+    },
+    "e-basic-feedback.label": {
+      "value": "Continue"
+    },
+    "e-pro-feedback.label": {
+      "value": "Continue"
+    },
+    "e-enterprise-feedback.label": {
+      "value": "Continue"
+    },
+    "e-feedback-plan-check.label": {
+      "value": "User responds"
+    },
+    "e-feedback-timer.label": {
+      "value": "5 min timeout"
+    },
+    "e-plan-check-enterprise.label": {
+      "value": "Enterprise"
+    },
+    "e-plan-check-standard.label": {
+      "value": "Standard"
+    },
+    "e-vip-setup-delay.label": {
+      "value": "Continue"
+    },
+    "e-wait-webhook.label": {
+      "value": "24h elapsed"
+    },
+    "e-webhook-offer.label": {
+      "value": "Synced"
+    },
+    "e-webhook-error.label": {
+      "value": "Sync Failed"
+    },
+    "e-offer-text-response.label": {
+      "value": "Text response"
+    },
+    "e-offer-exit.label": {
+      "value": "48 hours"
+    }
+  }
+}

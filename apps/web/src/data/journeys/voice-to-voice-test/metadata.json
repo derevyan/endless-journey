@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "exportedAt": "2026-01-16T10:39:16.096Z",
+  "journey": {
+    "id": "b8c9d0e1-f2a3-4b4c-9d5e-6f7a8b9c0d1e",
+    "slug": "voice-to-voice-test",
+    "name": "Voice-to-Voice Test",
+    "description": "Test journey with voice-to-voice mode - agent mirrors user input type",
+    "status": "active",
+    "mindstateConfig": null,
+    "transferAllowlist": null,
+    "createdAt": "2026-01-16T04:30:06.589Z",
+    "updatedAt": "2026-01-16T04:30:06.952Z"
+  },
+  "references": {
+    "defaultPipelineSlug": null,
+    "transferAllowlistSlugs": null
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "$schema": "../workflow-schema.json",
+  "id": "wf-questionnaire-demo-001",
+  "key": "questionnaire-demo",
+  "name": "Demo Questionnaire",
+  "description": "Demo test questionnaire - 3 button-only questions",
+  "status": "active",
+  "configuration": {
+    "edges": [
+      {
+        "id": "e-start-agent",
+        "source": "start",
+        "target": "agent-1"
+      },
+      {
+        "id": "e-agent-end",
+        "source": "agent-1",
+        "target": "end"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "start",
+        "data": {},
+        "type": "start",
+        "position": {
+          "x": 100,
+          "y": 200
+        }
+      },
+      {
+        "id": "agent-1",
+        "data": {
+          "llm": {
+            "model": "gemini-3-flash-preview",
+            "provider": "google-genai",
+            "temperature": 0.7,
+            "reasoningEffort": "high"
+          },
+          "name": "Assistant",
+          "enableQuickReplies": true,
+          "tools": {
+            "saveMemory": false,
+            "recallMemories": false,
+            "readUserVariable": false,
+            "writeUserVariable": false
+          },
+          "history": {
+            "strategy": "simple",
+            "maxMessages": 12
+          },
+          "promptRef": {
+            "name": "questionnaire-demo",
+            "label": "production"
+          },
+          "unifiedTools": {
+            "enabled": ["system:exit_to_next_node"],
+            "toolTimingOverrides": {
+              "system:exit_to_next_node": "immediate"
+            }
+          },
+          "externalTools": {
+            "embedded": []
+          },
+          "messageSource": "auto",
+          "promptVariables": {}
+        },
+        "type": "agent",
+        "position": {
+          "x": 350,
+          "y": 200
+        }
+      },
+      {
+        "id": "end",
+        "data": {},
+        "type": "end",
+        "position": {
+          "x": 600,
+          "y": 200
+        }
+      }
+    ]
+  },
+  "settings": {
+    "execution": {
+      "maxIterations": 50,
+      "timeoutSeconds": 300
+    },
+    "defaultLlm": {
+      "model": "gemini-3-flash-preview",
+      "provider": "openai",
+      "maxTokens": 2048,
+      "temperature": 0.7
+    }
+  }
+}

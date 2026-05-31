@@ -1,0 +1,46 @@
+{
+  "_comment": "This journey has a node that's not reachable from start - should trigger ORPHAN_NODE error",
+  "nodes": [
+    {
+      "id": "start",
+      "data": {
+        "type": "start",
+        "label": "Welcome",
+        "content": "Welcome to the demo!"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 0 }
+    },
+    {
+      "id": "orphan-message",
+      "data": {
+        "type": "message",
+        "label": "Orphan",
+        "content": "This node is not reachable from start!"
+      },
+      "type": "custom",
+      "position": { "x": 300, "y": 100 }
+    },
+    {
+      "id": "end",
+      "data": {
+        "type": "end",
+        "label": "Goodbye"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 200 }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-start-end",
+      "source": "start",
+      "target": "end"
+    },
+    {
+      "id": "edge-orphan-end",
+      "source": "orphan-message",
+      "target": "end"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "extends": ["eslint:recommended"],
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["**/testing/**"],
+            "message": "Runtime code cannot import testing utilities. Keep boundary clean."
+          }
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/__tests__/**", "**/testing/**"],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ]
+}

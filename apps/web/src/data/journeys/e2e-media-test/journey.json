@@ -1,0 +1,75 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "data": {
+        "type": "start",
+        "label": "$content:start.label",
+        "content": "$content:start.content"
+      },
+      "type": "custom",
+      "position": {
+        "x": 450,
+        "y": 0
+      }
+    },
+    {
+      "id": "message",
+      "data": {
+        "type": "message",
+        "label": "$content:message.label",
+        "buttons": [
+          {
+            "id": "btn-done",
+            "text": "$content:message.buttons.0.text",
+            "targetNodeId": "end"
+          }
+        ],
+        "content": "$content:message.content",
+        "responseType": "buttons"
+      },
+      "type": "custom",
+      "position": {
+        "x": 450,
+        "y": 200
+      }
+    },
+    {
+      "id": "end",
+      "data": {
+        "type": "end",
+        "label": "$content:end.label",
+        "content": "$content:end.content"
+      },
+      "type": "custom",
+      "position": {
+        "x": 450,
+        "y": 400
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-start-message",
+      "label": "",
+      "source": "start",
+      "target": "message",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "managed-btn::message::btn-done",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "message",
+      "target": "end",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-done",
+      "sourceHandle": "btn-done"
+    }
+  ]
+}

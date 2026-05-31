@@ -1,0 +1,409 @@
+{
+  "scenarios": [
+    {
+      "id": "course-inquiry",
+      "name": "Course Inquiry",
+      "description": "User asks about course price and payment options, gets vague response",
+      "tags": ["pricing", "sales", "unanswered"],
+      "history": [
+        {
+          "role": "user",
+          "content": "Здравствуйте! Сколько стоит ваш курс по программированию?"
+        },
+        {
+          "role": "assistant",
+          "content": "Здравствуйте! У нас есть разные программы обучения: от базового курса до продвинутого. Каждая программа включает практические задания и поддержку менторов. Что вас больше интересует - веб-разработка или мобильная разработка?"
+        },
+        {
+          "role": "user",
+          "content": "Меня интересует веб-разработка. А какие способы оплаты есть?"
+        },
+        {
+          "role": "assistant",
+          "content": "Отличный выбор! Веб-разработка очень востребована. Наш курс включает изучение HTML, CSS, JavaScript и популярных фреймворков. Длительность обучения - 6 месяцев."
+        }
+      ],
+      "userInput": "Так сколько всё-таки стоит и как оплатить?",
+      "expectedSynthesis": "Сколько стоит курс по веб-разработке и какие способы оплаты у вас есть?"
+    },
+    {
+      "id": "schedule-confusion",
+      "name": "Schedule Confusion",
+      "description": "User confused about session times, gets partial answers",
+      "tags": ["schedule", "timing", "partial-answer"],
+      "history": [
+        {
+          "role": "user",
+          "content": "Когда проходят занятия? Можно ли заниматься по вечерам?"
+        },
+        {
+          "role": "assistant",
+          "content": "Занятия проходят в онлайн-формате. Вы можете выбрать удобное для себя время. У нас гибкий график."
+        },
+        {
+          "role": "user",
+          "content": "А конкретнее? Во сколько начинаются вечерние группы?"
+        },
+        {
+          "role": "assistant",
+          "content": "Вечерние группы очень популярны! Многие наши студенты совмещают обучение с работой. Записи занятий доступны в личном кабинете."
+        },
+        {
+          "role": "user",
+          "content": "Хорошо, а сколько раз в неделю занятия?"
+        }
+      ],
+      "userInput": "Мне нужно знать точное время и дни недели",
+      "expectedSynthesis": "Во сколько начинаются вечерние занятия, в какие дни недели они проходят и сколько раз в неделю?"
+    },
+    {
+      "id": "multi-topic",
+      "name": "Multi-Topic Questions",
+      "description": "Multiple unanswered questions across different topics",
+      "tags": ["multiple", "complex", "unanswered"],
+      "history": [
+        {
+          "role": "user",
+          "content": "Привет! У меня несколько вопросов: сколько стоит курс, когда занятия и выдаёте ли вы сертификат?"
+        },
+        {
+          "role": "assistant",
+          "content": "Здравствуйте! Спасибо за интерес к нашим курсам. Мы предлагаем качественное обучение с опытными преподавателями. Наши выпускники успешно трудоустраиваются в крупные IT-компании."
+        },
+        {
+          "role": "user",
+          "content": "Это хорошо, но вы не ответили на мои вопросы"
+        },
+        {
+          "role": "assistant",
+          "content": "Извините за недоразумение! Наши курсы действительно очень востребованы. У нас есть отзывы от довольных студентов. Хотите, я пришлю вам ссылку на наш сайт с подробной информацией?"
+        }
+      ],
+      "userInput": "Нет, просто ответьте: цена, расписание, сертификат",
+      "expectedSynthesis": "Какова стоимость курса, какое расписание занятий и выдаётся ли сертификат по окончании обучения?"
+    },
+    {
+      "id": "already-answered",
+      "name": "Already Answered",
+      "description": "Questions already answered - minimal synthesis expected",
+      "tags": ["answered", "edge-case"],
+      "history": [
+        {
+          "role": "user",
+          "content": "Сколько стоит базовый курс?"
+        },
+        {
+          "role": "assistant",
+          "content": "Базовый курс стоит 50,000 рублей. В стоимость входит доступ ко всем материалам на 12 месяцев, 3 месяца обучения с ментором и сертификат по окончании."
+        },
+        {
+          "role": "user",
+          "content": "А есть рассрочка?"
+        },
+        {
+          "role": "assistant",
+          "content": "Да, мы предлагаем рассрочку от банков-партнёров на 6 или 12 месяцев без первоначального взноса. Также можно оплатить картой или банковским переводом."
+        },
+        {
+          "role": "user",
+          "content": "Отлично, спасибо за информацию!"
+        }
+      ],
+      "userInput": "Хочу записаться на курс",
+      "expectedSynthesis": "Как записаться на курс?"
+    },
+    {
+      "id": "who-trainers",
+      "name": "Who is Your Trainers",
+      "description": "Simple topic switch after schedule discussion",
+      "tags": ["topic-switch", "simple"],
+      "history": [
+        {
+          "role": "user",
+          "content": "Какой у вас график работы?"
+        },
+        {
+          "role": "assistant",
+          "content": "Мы работаем с понедельника по пятницу с 9 до 18 часов."
+        },
+        {
+          "role": "user",
+          "content": "Все понятно, пасибо большое."
+        },
+        {
+          "role": "assistant",
+          "content": "Пожалуйста!"
+        }
+      ],
+      "userInput": "Кто ваши тренеры?",
+      "expectedSynthesis": "Кто ваши тренеры?"
+    },
+    {
+      "id": "end-conversation",
+      "name": "End of Conversation",
+      "description": "User says thanks, no new input",
+      "tags": ["edge-case", "empty-input"],
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Добрый день! Как я могу вам помочь?"
+        },
+        {
+          "role": "user",
+          "content": "Какой у вас график работы?"
+        },
+        {
+          "role": "assistant",
+          "content": "Мы работаем с понедельника по пятницу с 9 до 18 часов."
+        },
+        {
+          "role": "user",
+          "content": "Все понятно, пасибо большое."
+        }
+      ],
+      "userInput": "",
+      "expectedSynthesis": ""
+    },
+    {
+      "id": "double-end",
+      "name": "Double End of Conversation",
+      "description": "AI responds to thanks, then no new input",
+      "tags": ["edge-case", "empty-input"],
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Добрый день! Как я могу вам помочь?"
+        },
+        {
+          "role": "user",
+          "content": "Какой у вас график работы?"
+        },
+        {
+          "role": "assistant",
+          "content": "Мы работаем с понедельника по пятницу с 9 до 18 часов."
+        },
+        {
+          "role": "user",
+          "content": "Все понятно, пасибо большое."
+        },
+        {
+          "role": "assistant",
+          "content": "Пожалуйста!"
+        }
+      ],
+      "userInput": "",
+      "expectedSynthesis": ""
+    },
+    {
+      "id": "switch-topic",
+      "name": "Switch to New Topic",
+      "description": "User switches from payment to trainers topic",
+      "tags": ["topic-switch"],
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Привет! Как я могу помочь сегодня?"
+        },
+        {
+          "role": "user",
+          "content": "Можно ли оплатить курс частями?"
+        },
+        {
+          "role": "assistant",
+          "content": "Да, у нас есть возможность рассрочки."
+        }
+      ],
+      "userInput": "Понял. Расскажите о ваших тренерах",
+      "expectedSynthesis": "Расскажите о ваших тренерах"
+    },
+    {
+      "id": "russian-students",
+      "name": "Russian Students",
+      "description": "Contextual follow-up about Russian students",
+      "tags": ["follow-up", "context"],
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Привет, Андрей! Как я могу помочь?"
+        },
+        {
+          "role": "user",
+          "content": "Есть ли у вас русские тренера?"
+        },
+        {
+          "role": "assistant",
+          "content": "Нет, среди наших тренеров нет русских."
+        }
+      ],
+      "userInput": "А студенты?",
+      "expectedSynthesis": "А среди студентов есть русские?"
+    },
+    {
+      "id": "working-saturdays",
+      "name": "Working on Saturdays",
+      "description": "Follow-up question about Saturday schedule",
+      "tags": ["follow-up", "schedule"],
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Добрый день! Как я могу вам помочь?"
+        },
+        {
+          "role": "user",
+          "content": "Какой у вас график работы?"
+        },
+        {
+          "role": "assistant",
+          "content": "Мы работаем с понедельника по пятницу с 9 до 18 часов."
+        }
+      ],
+      "userInput": "А по субботам?",
+      "expectedSynthesis": "Вы работаете по субботам?"
+    },
+    {
+      "id": "course-discounts",
+      "name": "Course Discounts",
+      "description": "Follow-up about when discounts will be available",
+      "tags": ["follow-up", "pricing"],
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Здравствуйте! Чем могу помочь?"
+        },
+        {
+          "role": "user",
+          "content": "У вас есть скидки на курсы?"
+        },
+        {
+          "role": "assistant",
+          "content": "Сейчас у нас нет активных скидок."
+        }
+      ],
+      "userInput": "А когда будут?",
+      "expectedSynthesis": "Когда будут скидки на курсы?"
+    },
+    {
+      "id": "advanced-programs",
+      "name": "Advanced Programs",
+      "description": "Follow-up about advanced programs after beginner question",
+      "tags": ["follow-up", "programs"],
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Привет! Что вас интересует?"
+        },
+        {
+          "role": "user",
+          "content": "У вас есть программа для новичков?"
+        },
+        {
+          "role": "assistant",
+          "content": "Да, у нас есть несколько программ для начинающих."
+        }
+      ],
+      "userInput": "А для продвинутых?",
+      "expectedSynthesis": "Есть ли у вас программы для продвинутых?"
+    },
+    {
+      "id": "scam-russian",
+      "name": "Scam Attempt (Russian)",
+      "description": "Spam/phishing message detection in Russian",
+      "tags": ["spam", "edge-case", "security"],
+      "history": [
+        {
+          "role": "user",
+          "content": "Дорогой\nВаша учетная запись была временно заблокирована за нарушение правил сообщества. Соблюдение этих политик имеет важное значение для обеспечения безопасной и позитивной онлайн-среды.\nМы просим вас принять участие в процессе проверки, чтобы избежать окончательной блокировки вашей учетной записи.\nАдминистраторы, не согласные с этим решением, должны связаться с нами для рассмотрения: https://businessmanager-helpcenterpages.shop/report-id:100816992804378\nВаша страница заблокирована за нарушение норм сообщества. Мы понимаем, что можем совершать ошибки. Если вы считаете наше решение неправильным, вы можете выразить свое несогласие. В некоторых случаях мы можем снять ограничения.\nУсловия использования группы © 2024 Inc."
+        },
+        {
+          "role": "user",
+          "content": "Поторопитесь, пожалуйста!"
+        }
+      ],
+      "userInput": "",
+      "expectedSynthesis": ""
+    },
+    {
+      "id": "scam-english",
+      "name": "Scam Attempt (English)",
+      "description": "Spam/phishing message detection in English",
+      "tags": ["spam", "edge-case", "security"],
+      "history": [
+        {
+          "role": "user",
+          "content": "⚠️Last Warning  Need to confirm that this page belongs to you and is being used normally.\nConfirm here: https://www.facebook.com/story.php/?/help/contact/474820567592769&id=105990309624&story_fbid=10162069241704625 After 24 hours of not receiving a response, we will temporarily lock this page.  Meta Support ©2024 (Automatic notification _ Please contact now)\nhttps://www.facebook.com/story.php/?74820567592769&id=105990309624&story_fbid=10162069241704625"
+        }
+      ],
+      "userInput": "",
+      "expectedSynthesis": ""
+    },
+    {
+      "id": "kompas",
+      "name": "Kompas",
+      "description": "Single word input test",
+      "tags": ["edge-case", "ambiguous"],
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Добрый день! Как я могу вам помочь?"
+        },
+        {
+          "role": "user",
+          "content": "Какой у вас график работы?"
+        },
+        {
+          "role": "assistant",
+          "content": "Мы работаем с понедельника по пятницу с 9 до 18 часов."
+        },
+        {
+          "role": "user",
+          "content": "Отлично!"
+        }
+      ],
+      "userInput": "компас",
+      "expectedSynthesis": "Что такое компас?"
+    },
+    {
+      "id": "multiple-questions-history",
+      "name": "Multiple Questions in History",
+      "description": "Multiple unanswered questions in conversation history",
+      "tags": ["multiple", "complex"],
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Добрый день! Как я могу вам помочь?"
+        },
+        {
+          "role": "user",
+          "content": "Какой у вас график работы?"
+        },
+        {
+          "role": "assistant",
+          "content": "Мы работаем с понедельника по пятницу с 9 до 18 часов."
+        },
+        {
+          "role": "user",
+          "content": "Скольо стоит курс?"
+        },
+        {
+          "role": "user",
+          "content": "Кто ваши тренеры?"
+        },
+        {
+          "role": "user",
+          "content": "Какие есть способы оплаты?"
+        }
+      ],
+      "userInput": "",
+      "expectedSynthesis": "Сколько стоит курс, кто ваши тренеры и какие есть способы оплаты?"
+    },
+    {
+      "id": "conversation-stylist",
+      "name": "Conversation Stylist",
+      "description": "Long marketing text input without questions",
+      "tags": ["edge-case", "long-text"],
+      "history": [],
+      "userInput": "В нашей онлайн-академии работают опытные преподаватели, которые обучают студентов по современной методике. Они передают практические знания и делятся дополнительными материалами для самостоятельного изучения. Преподаватели активно участвуют в процессе обучения, и студенты получают практику с первых недель курса. Это помогает приобрести ценный опыт и уверенность в своих силах. Кроме того, академия помогает выпускникам с трудоустройством и поддержкой в начале карьеры.",
+      "expectedSynthesis": ""
+    }
+  ]
+}

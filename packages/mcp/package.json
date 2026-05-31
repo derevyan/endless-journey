@@ -1,0 +1,24 @@
+{
+  "name": "@journey/mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client/index.ts",
+    "./types": "./src/types/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@journey/infra": "workspace:*",
+    "@journey/logger": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.3",
+    "typescript": "~5.8.3"
+  }
+}

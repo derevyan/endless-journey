@@ -1,0 +1,59 @@
+{
+  "version": "1.0",
+  "content": {
+    "start.label": {
+      "value": "START"
+    },
+    "start.content": {
+      "value": "Welcome to Questionnaire Demo"
+    },
+    "questionnaire-agent.label": {
+      "value": "Agent: Questionnaire"
+    },
+    "questionnaire-agent.welcome.message": {
+      "value": "Welcome! I'm ready to begin the questionnaire. This will take about 15 minutes."
+    },
+    "questionnaire-agent.initialPrompt.template": {
+      "value": "Start the questionnaire with the first question."
+    },
+    "questionnaire-agent.plugins.0.steps.0.content": {
+      "value": "Read the conversation history with the user and formulate a message that will bring them back to the dialog. Use the approach you think will be most effective for this particular person."
+    },
+    "questionnaire-agent.plugins.0.steps.1.content": {
+      "value": "Read the conversation history with the user and formulate a message that will bring them back to the dialog. Use the approach you think will be most effective for this particular person."
+    },
+    "webhook-export.label": {
+      "value": "Export Data"
+    },
+    "success-message.label": {
+      "value": "Success Message"
+    },
+    "success-message.content": {
+      "value": "✅ Thank you for completing the questionnaire! Your responses have been successfully submitted and exported."
+    },
+    "end.label": {
+      "value": "END"
+    },
+    "end.content": {
+      "value": "Thank you for completing the questionnaire! Your responses have been submitted."
+    },
+    "exit-timeout.label": {
+      "value": "EXIT (Timeout)"
+    },
+    "exit-timeout.content": {
+      "value": "Session timed out. You can return and continue the questionnaire later."
+    },
+    "e-start-questionnaire.label": {
+      "value": "begin"
+    },
+    "e-questionnaire-webhook.label": {
+      "value": "completed"
+    },
+    "e-webhook-success.label": {
+      "value": "Success"
+    },
+    "e-webhook-error.label": {
+      "value": "Error"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "_comment": "This journey has an edge pointing to a non-existent node - should trigger DANGLING_EDGE_TARGET error",
+  "nodes": [
+    {
+      "id": "start",
+      "data": {
+        "type": "start",
+        "label": "Welcome",
+        "content": "Welcome to the demo!"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 0 }
+    },
+    {
+      "id": "end",
+      "data": {
+        "type": "end",
+        "label": "Goodbye"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 200 }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-to-nowhere",
+      "source": "start",
+      "target": "deleted-node"
+    },
+    {
+      "id": "edge-start-end",
+      "source": "start",
+      "target": "end"
+    }
+  ]
+}

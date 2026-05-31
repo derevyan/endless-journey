@@ -1,0 +1,8 @@
+# Allow to see envs files as this is safe dev enviroment.
+!.env.example
+!.env
+
+
+# Allow logs and journey log
+!apps/api/logs/*
+!journey.log

@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "content": {
+    "start.label": {
+      "value": "START"
+    },
+    "start.content": {
+      "value": "Begin AI Agent test journey"
+    },
+    "ai-assistant.label": {
+      "value": "AI Assistant"
+    },
+    "ai-assistant.welcome.message": {
+      "value": "👋 Hi! I'm your AI assistant. How can I help you today?"
+    },
+    "end.label": {
+      "value": "END"
+    },
+    "end.content": {
+      "value": "Thanks for testing the AI agent! The conversation has ended."
+    },
+    "e-start-agent.label": {
+      "value": "start"
+    },
+    "e-agent-end.label": {
+      "value": "complete"
+    }
+  }
+}

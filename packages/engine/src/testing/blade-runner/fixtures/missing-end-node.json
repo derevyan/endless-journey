@@ -1,0 +1,46 @@
+{
+  "_comment": "This journey is missing an end node - should trigger NO_END_NODE error",
+  "nodes": [
+    {
+      "id": "start",
+      "data": {
+        "type": "start",
+        "label": "Welcome",
+        "content": "Welcome to the demo!"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 0 }
+    },
+    {
+      "id": "message-1",
+      "data": {
+        "type": "message",
+        "label": "Info",
+        "content": "This journey goes nowhere...",
+        "buttons": [
+          {
+            "id": "btn-nowhere",
+            "text": "Where do I go?",
+            "targetNodeId": "message-1"
+          }
+        ],
+        "responseType": "buttons"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 150 }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-start-msg",
+      "source": "start",
+      "target": "message-1"
+    },
+    {
+      "id": "edge-msg-loop",
+      "source": "message-1",
+      "target": "message-1",
+      "sourceHandle": "btn-nowhere"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "exportedAt": "2026-01-16T10:39:13.259Z",
+  "journey": {
+    "id": "a7b8c9d0-e1f2-4a3b-9c4d-5e6f7a8b9c0d",
+    "slug": "voice-only-test",
+    "name": "Voice-Only Test",
+    "description": "Test journey with voice-only mode - agent always responds with audio (TTS)",
+    "status": "active",
+    "mindstateConfig": null,
+    "transferAllowlist": null,
+    "createdAt": "2026-01-16T04:30:06.585Z",
+    "updatedAt": "2026-01-16T04:30:06.950Z"
+  },
+  "references": {
+    "defaultPipelineSlug": null,
+    "transferAllowlistSlugs": null
+  }
+}

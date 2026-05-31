@@ -1,0 +1,27 @@
+{
+  "name": "@journey/mcp-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --watch-path=../../packages src/index.ts",
+    "start": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.19.7",
+    "@journey/logger": "workspace:*",
+    "@journey/mcp": "workspace:*",
+    "@langchain/mcp-adapters": "^1.1.0",
+    "dotenv": "^16.6.1",
+    "hono": "^4.11.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.3",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.3",
+    "vitest": "^2.1.9"
+  }
+}

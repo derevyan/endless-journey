@@ -1,0 +1,8 @@
+{
+  "name": "questionnaire-demo",
+  "description": "Demo test questionnaire - 3 button-only questions",
+  "type": "text",
+  "tags": ["test", "questionnaire", "demo"],
+  "isSystem": false,
+  "scope": "demo"
+}

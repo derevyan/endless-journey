@@ -1,0 +1,106 @@
+{
+  "$schema": "../workflow-schema.json",
+  "id": "wf-if-else-demo-001",
+  "key": "if-else-demo",
+  "name": "If/Else Demo",
+  "description": "Demonstrates If/Else conditional branching with both expression-based and intent-based conditions. Routes messages to Support or Sales based on detected intent.",
+  "status": "active",
+  "configuration": {
+    "nodes": [
+      {
+        "id": "start",
+        "type": "start",
+        "position": { "x": 50, "y": 150 },
+        "data": { "name": "Start" }
+      },
+      {
+        "id": "if-intent",
+        "type": "if_else",
+        "position": { "x": 210, "y": 150 },
+        "data": {
+          "name": "Route by Intent",
+          "conditionType": "intent",
+          "intent": {
+            "intents": ["support", "help", "problem", "issue", "bug"],
+            "minConfidence": 0.6
+          }
+        }
+      },
+      {
+        "id": "agent-support",
+        "type": "agent",
+        "position": { "x": 370, "y": 75 },
+        "data": {
+          "name": "Support Agent",
+          "systemPrompt": "You are a helpful technical support agent. The user has been identified as needing support. Provide clear, empathetic assistance.\n\nGuidelines:\n- Listen carefully to the issue\n- Provide step-by-step solutions\n- Be patient and understanding",
+          "llm": {
+            "provider": "google-genai",
+            "model": "gemini-3-flash-preview",
+            "reasoningEffort": "high"
+          },
+          "unifiedTools": {
+            "enabled": [
+              "system:get_user_profile",
+              "system:get_journey_context",
+              "system:exit_to_next_node"
+            ]
+          },
+          "history": {
+            "strategy": "simple",
+            "maxMessages": 4
+          }
+        }
+      },
+      {
+        "id": "agent-sales",
+        "type": "agent",
+        "position": { "x": 370, "y": 225 },
+        "data": {
+          "name": "Sales Agent",
+          "systemPrompt": "You are a friendly sales representative. The user appears to be interested in learning more about the product.\n\nGuidelines:\n- Answer pricing and feature questions\n- Highlight key benefits\n- Guide users toward the right plan for their needs",
+          "llm": {
+            "provider": "google-genai",
+            "model": "gemini-3-flash-preview",
+            "reasoningEffort": "high"
+          },
+          "unifiedTools": {
+            "enabled": [
+              "system:get_user_profile",
+              "system:get_journey_context",
+              "system:exit_to_next_node"
+            ]
+          },
+          "history": {
+            "strategy": "simple",
+            "maxMessages": 4
+          }
+        }
+      },
+      {
+        "id": "end-support",
+        "type": "end",
+        "position": { "x": 660, "y": 75 },
+        "data": {
+          "name": "End (Support)",
+          "outputTemplate": "Support session complete. Please let us know if you need further assistance."
+        }
+      },
+      {
+        "id": "end-sales",
+        "type": "end",
+        "position": { "x": 660, "y": 225 },
+        "data": {
+          "name": "End (Sales)",
+          "outputTemplate": "Thank you for your interest! Feel free to reach out anytime."
+        }
+      }
+    ],
+    "edges": [
+      { "id": "e-start-if", "source": "start", "target": "if-intent" },
+      { "id": "e-if-support", "source": "if-intent", "target": "agent-support", "sourceHandle": "yes" },
+      { "id": "e-if-sales", "source": "if-intent", "target": "agent-sales", "sourceHandle": "no" },
+      { "id": "e-support-end", "source": "agent-support", "target": "end-support" },
+      { "id": "e-sales-end", "source": "agent-sales", "target": "end-sales" }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "exportedAt": "2026-01-16T10:54:53.654Z",
+  "journey": {
+    "id": "e5f6a7b8-c9d0-4e1f-9a2b-3c4d5e6f7a8b",
+    "slug": "support-triage",
+    "name": "Customer Support Triage",
+    "description": "Multi-branch support flow with category routing, ticket creation, and feedback collection",
+    "status": "active",
+    "mindstateConfig": null,
+    "transferAllowlist": null,
+    "createdAt": "2026-01-16T04:30:06.577Z",
+    "updatedAt": "2026-01-16T04:30:06.945Z"
+  },
+  "references": {
+    "defaultPipelineSlug": null,
+    "transferAllowlistSlugs": null
+  }
+}

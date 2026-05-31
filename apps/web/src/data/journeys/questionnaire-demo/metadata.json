@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "exportedAt": "2026-01-16T10:55:02.024Z",
+  "journey": {
+    "id": "e5f6a7b8-c9d0-4e1f-9a2b-4c5d6e7f8a9b",
+    "slug": "questionnaire-demo",
+    "name": "Questionnaire Demo",
+    "description": "Demo journey with questionnaire agent and webhook export",
+    "status": "active",
+    "mindstateConfig": null,
+    "transferAllowlist": null,
+    "createdAt": "2026-01-16T04:30:06.592Z",
+    "updatedAt": "2026-01-16T04:30:06.957Z"
+  },
+  "references": {
+    "defaultPipelineSlug": null,
+    "transferAllowlistSlugs": null
+  }
+}

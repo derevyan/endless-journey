@@ -1,0 +1,203 @@
+{
+  "version": "1.0",
+  "content": {
+    "start.label": {
+      "value": "Support Request"
+    },
+    "start.content": {
+      "value": "Welcome to ProductFlow Support! 🎧\n\nWe're here to help you resolve any issues quickly.\n\nLet's get started by understanding your problem."
+    },
+    "issue-category.label": {
+      "value": "Issue Category"
+    },
+    "issue-category.content": {
+      "value": "What type of issue are you experiencing?\n\nPlease select the category that best describes your problem:"
+    },
+    "issue-category.buttons.0.text": {
+      "value": "🔧 Technical Issue"
+    },
+    "issue-category.buttons.1.text": {
+      "value": "💳 Billing Question"
+    },
+    "issue-category.buttons.2.text": {
+      "value": "📚 How-To / Tutorial"
+    },
+    "issue-category.buttons.3.text": {
+      "value": "🔐 Account Access"
+    },
+    "issue-category.buttons.4.text": {
+      "value": "💡 Feature Request"
+    },
+    "issue-category.buttons.5.text": {
+      "value": "🐛 Bug Report"
+    },
+    "issue-category.plugins.0.steps.0.content": {
+      "value": "We haven't heard from you yet. Please select a category so we can help you better."
+    },
+    "technical-details.label": {
+      "value": "Technical Details"
+    },
+    "technical-details.content": {
+      "value": "🔧 **Technical Support**\n\nTo help resolve your technical issue quickly, please provide:\n\n1. What were you trying to do?\n2. What happened instead?\n3. Any error messages you saw?\n\nType your response below:"
+    },
+    "billing-details.label": {
+      "value": "Billing Details"
+    },
+    "billing-details.content": {
+      "value": "💳 **Billing Support**\n\nI can help with:\n• Invoice questions\n• Payment issues\n• Refund requests\n• Subscription changes\n\nPlease describe your billing concern:"
+    },
+    "knowledge-base.label": {
+      "value": "Knowledge Base"
+    },
+    "knowledge-base.content": {
+      "value": "📚 **How-To Support**\n\nGreat question! Let me help you learn.\n\nHere are our most helpful resources:\n\n• [Video Tutorials](https://help.productflow.com/videos)\n• [Step-by-Step Guides](https://help.productflow.com/guides)\n• [FAQ](https://help.productflow.com/faq)\n\nDid you find what you need, or would you like to chat with our team?"
+    },
+    "knowledge-base.buttons.0.text": {
+      "value": "✅ Found It!"
+    },
+    "knowledge-base.buttons.1.text": {
+      "value": "💬 Chat with Team"
+    },
+    "account-access.label": {
+      "value": "Account Access"
+    },
+    "account-access.content": {
+      "value": "🔐 **Account Access Support**\n\nFor security reasons, account access issues require verification.\n\nPlease provide:\n• Your registered email\n• Last 4 digits of payment method\n• Account creation date (approximate)\n\nType your response:"
+    },
+    "general-inquiry.label": {
+      "value": "General Inquiry"
+    },
+    "general-inquiry.content": {
+      "value": "💡 Thank you for reaching out!\n\nPlease describe your request or feedback in detail, and our team will get back to you shortly.\n\nType your message:"
+    },
+    "ticket-created.label": {
+      "value": "Ticket Confirmation"
+    },
+    "ticket-created.content": {
+      "value": "✅ **Ticket Created**\n\nTicket #{{context.ticketId}}\nCategory: {{context.issueCategory}}\nPriority: Standard\n\nOur support team will review your request and respond within:\n• Technical: 2-4 hours\n• Billing: 1-2 hours\n• Other: 4-8 hours\n\nYou'll receive updates via this chat."
+    },
+    "notify-team.label": {
+      "value": "Notify Support Team"
+    },
+    "notify-team.content": {
+      "value": "Send ticket notification to support team"
+    },
+    "wait-for-resolution.label": {
+      "value": "Awaiting Resolution"
+    },
+    "wait-for-resolution.content": {
+      "value": "Waiting for support team to resolve the issue"
+    },
+    "wait-for-resolution.reason": {
+      "value": "Give support team 4 hours to investigate and respond"
+    },
+    "resolution-message.label": {
+      "value": "Resolution Update"
+    },
+    "resolution-message.content": {
+      "value": "✅ **Issue Resolved**\n\nGreat news! Our team has resolved your issue.\n\nTicket #{{context.ticketId}}\nResolution: {{context.resolutionDetails}}\n\nIs everything working correctly now?"
+    },
+    "resolution-message.buttons.0.text": {
+      "value": "✅ Yes, All Good!"
+    },
+    "resolution-message.buttons.1.text": {
+      "value": "❌ Still Having Issues"
+    },
+    "satisfaction-check.label": {
+      "value": "Check Satisfaction"
+    },
+    "satisfaction-check.content": {
+      "value": "Route based on user satisfaction"
+    },
+    "satisfaction-check.branches.0.label": {
+      "value": "Satisfied"
+    },
+    "satisfaction-check.branches.1.label": {
+      "value": "Needs More Help"
+    },
+    "feedback-request.label": {
+      "value": "Request Feedback"
+    },
+    "feedback-request.content": {
+      "value": "🌟 **We'd Love Your Feedback**\n\nHow would you rate your support experience?\n\n1 = Poor, 5 = Excellent"
+    },
+    "feedback-request.buttons.0.text": {
+      "value": "⭐️ 1"
+    },
+    "feedback-request.buttons.1.text": {
+      "value": "⭐️⭐️ 2"
+    },
+    "feedback-request.buttons.2.text": {
+      "value": "⭐️⭐️⭐️ 3"
+    },
+    "feedback-request.buttons.3.text": {
+      "value": "⭐️⭐️⭐️⭐️ 4"
+    },
+    "feedback-request.buttons.4.text": {
+      "value": "⭐️⭐️⭐️⭐️⭐️ 5"
+    },
+    "thank-you-end.label": {
+      "value": "Thank You"
+    },
+    "thank-you-end.content": {
+      "value": "Thank you for your feedback! 🙏\n\nYour rating: {{context.supportRating}}\n\nWe're always working to improve. If you need help in the future, we're here 24/7.\n\nHave a great day! ✨"
+    },
+    "reopen-ticket.label": {
+      "value": "Reopen Ticket"
+    },
+    "reopen-ticket.content": {
+      "value": "I'm sorry the issue persists. 😔\n\nWe're reopening your ticket and escalating to our senior support team.\n\nTicket #{{context.ticketId}} - ESCALATED\n\nPlease provide more details about what's still not working:"
+    },
+    "escalate-end.label": {
+      "value": "Escalated"
+    },
+    "escalate-end.content": {
+      "value": "Your ticket has been escalated to our senior support team.\n\nTicket #{{context.ticketId}}\nStatus: ESCALATED - HIGH PRIORITY\n\nA senior engineer will contact you within 30 minutes.\n\nThank you for your patience. 🙏"
+    },
+    "kb-check.label": {
+      "value": "KB Success?"
+    },
+    "kb-check.content": {
+      "value": "Check if knowledge base resolved the issue"
+    },
+    "kb-check.branches.0.label": {
+      "value": "Self-Resolved"
+    },
+    "kb-check.branches.1.label": {
+      "value": "Needs Support"
+    },
+    "kb-resolved-end.label": {
+      "value": "Self-Service Success"
+    },
+    "kb-resolved-end.content": {
+      "value": "Great! 🎉 We're glad you found the answer.\n\nIf you need more help in the future, we're always here!\n\nHappy building! 🚀"
+    },
+    "e-kb-resolved.label": {
+      "value": "Found It"
+    },
+    "e-kb-needs-support.label": {
+      "value": "Needs Team"
+    },
+    "e-notify-wait.label": {
+      "value": "Ticket created"
+    },
+    "e-notify-error.label": {
+      "value": "Error"
+    },
+    "e-wait-resolved.label": {
+      "value": "4h elapsed"
+    },
+    "e-resolution-timer.label": {
+      "value": "Timeout (24h)"
+    },
+    "e-check-satisfied.label": {
+      "value": "Satisfied"
+    },
+    "e-feedback-timer.label": {
+      "value": "Timeout (48h)"
+    },
+    "e-check-reopen.label": {
+      "value": "Issues Persist"
+    }
+  }
+}

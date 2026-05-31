@@ -1,0 +1,50 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "build/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "inputs": ["src/**/*.ts", "../../packages/*/src/**/*.ts"]
+    },
+    "preview": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    },
+    "test:unit": {
+      "dependsOn": ["^build"]
+    },
+    "test:health": {
+      "dependsOn": ["^build"]
+    },
+    "test:auth": {
+      "dependsOn": ["^build"]
+    },
+    "test:journeys": {
+      "dependsOn": ["^build"]
+    },
+    "test:webhook": {
+      "dependsOn": ["^build"]
+    },
+    "test:core": {
+      "dependsOn": ["^build"]
+    },
+    "test:slow": {
+      "dependsOn": ["^build"]
+    },
+    "lint": {
+      "dependsOn": ["^build"]
+    }
+  }
+}
+

@@ -1,0 +1,70 @@
+{
+  "_comment": "This journey has button targetNodeId that doesn't match the edge target - should trigger BUTTON_TARGET_EDGE_MISMATCH warning",
+  "nodes": [
+    {
+      "id": "start",
+      "data": {
+        "type": "start",
+        "label": "Welcome",
+        "content": "Welcome to the demo!"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 0 }
+    },
+    {
+      "id": "mismatch-choice",
+      "data": {
+        "type": "message",
+        "label": "Mismatch Choice",
+        "content": "Button says 'end' but edge goes to 'message-1':",
+        "buttons": [
+          {
+            "id": "btn-mismatch",
+            "text": "Continue (mismatch)",
+            "targetNodeId": "end"
+          }
+        ],
+        "responseType": "buttons"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 150 }
+    },
+    {
+      "id": "message-1",
+      "data": {
+        "type": "message",
+        "label": "Info",
+        "content": "Edge leads here, but button says it goes to end"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 300 }
+    },
+    {
+      "id": "end",
+      "data": {
+        "type": "end",
+        "label": "Goodbye"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 450 }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-start-mismatch",
+      "source": "start",
+      "target": "mismatch-choice"
+    },
+    {
+      "id": "edge-mismatch-msg",
+      "source": "mismatch-choice",
+      "target": "message-1",
+      "sourceHandle": "btn-mismatch"
+    },
+    {
+      "id": "edge-msg-end",
+      "source": "message-1",
+      "target": "end"
+    }
+  ]
+}

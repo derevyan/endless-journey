@@ -1,0 +1,157 @@
+{
+  "$schema": "../workflow-schema.json",
+  "id": "wf-multi-agent-001",
+  "key": "multi-agent-router",
+  "name": "Multi-Agent Router",
+  "description": "Advanced workflow with intent routing. Routes to Support or Sales based on user intent.",
+  "status": "active",
+  "configuration": {
+    "nodes": [
+      {
+        "id": "start",
+        "type": "start",
+        "position": { "x": 50, "y": 150 },
+        "data": { "name": "Start" }
+      },
+      {
+        "id": "guard-safety",
+        "type": "guard",
+        "position": { "x": 210, "y": 150 },
+        "data": {
+          "name": "Guard",
+          "workers": ["safety_guard"],
+          "blockedMessage": "I cannot help with that request. Please ask something appropriate.",
+          "terminateOnBlock": false
+        }
+      },
+      {
+        "id": "blocked-end",
+        "type": "end",
+        "position": { "x": 210, "y": 280 },
+        "data": {
+          "name": "End-Blocked",
+          "outputTemplate": "Request blocked by safety guard."
+        }
+      },
+      {
+        "id": "agent-router",
+        "type": "agent",
+        "position": { "x": 370, "y": 150 },
+        "data": {
+          "name": "Intent Router",
+          "systemPrompt": "You are an intent classification agent. Your job is to analyze the user's message and classify it into exactly one category.\n\nCategories:\n- \"support\": Technical issues, bugs, errors, how-to questions, troubleshooting\n- \"sales\": Pricing questions, plan comparisons, upgrades, feature inquiries, purchasing\n\nAnalyze the message carefully and respond with ONLY a JSON object.",
+          "llm": {
+            "provider": "google-genai",
+            "model": "gemini-3-flash-preview",
+            "reasoningEffort": "high"
+          },
+          "unifiedTools": {
+            "enabled": ["system:get_user_profile", "system:get_journey_context"]
+          },
+          "responseFormat": {
+            "type": "json_schema",
+            "name": "intent_classification",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "intent": { "type": "string", "enum": ["support", "sales"] },
+                "confidence": { "type": "number" },
+                "reasoning": { "type": "string" }
+              },
+              "required": ["intent", "confidence", "reasoning"],
+              "additionalProperties": false
+            },
+            "strict": true
+          },
+          "outputVariable": "router_result",
+          "history": {
+            "strategy": "simple",
+            "maxMessages": 4
+          }
+        }
+      },
+      {
+        "id": "if-intent",
+        "type": "if_else",
+        "position": { "x": 530, "y": 150 },
+        "data": {
+          "name": "If/Else",
+          "conditionType": "expression",
+          "condition": {
+            "left": "router_result.intent",
+            "operator": "===",
+            "right": "support"
+          }
+        }
+      },
+      {
+        "id": "agent-support",
+        "type": "agent",
+        "position": { "x": 690, "y": 75 },
+        "data": {
+          "name": "Support Agent",
+          "systemPrompt": "You are a helpful and patient technical support agent for the Journey platform.\n\nYour responsibilities:\n- Listen carefully to user issues and ask clarifying questions\n- Provide clear, step-by-step troubleshooting guidance\n- Explain technical concepts in simple terms\n- Acknowledge user frustration with empathy\n- Escalate complex issues by recommending ticket creation\n\nCommunication style:\n- Be warm and professional\n- Use simple language, avoid jargon\n- Break down solutions into numbered steps\n- Confirm understanding before moving on",
+          "llm": {
+            "provider": "google-genai",
+            "model": "gemini-3-flash-preview",
+            "reasoningEffort": "high"
+          },
+          "unifiedTools": {
+            "enabled": [
+              "system:get_user_profile",
+              "system:get_journey_context",
+              "system:exit_to_next_node",
+              "system:read_user_variable"
+            ]
+          },
+          "history": {
+            "strategy": "simple",
+            "maxMessages": 20
+          }
+        }
+      },
+      {
+        "id": "agent-sales",
+        "type": "agent",
+        "position": { "x": 690, "y": 225 },
+        "data": {
+          "name": "Sales Agent",
+          "systemPrompt": "You are a friendly and knowledgeable sales agent for the Journey platform.\n\nYour responsibilities:\n- Answer questions about pricing and plans\n- Explain feature differences between tiers\n- Help users choose the right plan for their needs\n- Highlight the value proposition without being pushy\n- Address concerns about cost with ROI examples\n\nAvailable plans:\n- Basic: $29/mo - For small teams, 5 journeys, basic analytics\n- Pro: $99/mo - For growing teams, unlimited journeys, advanced analytics, priority support\n- Enterprise: Custom pricing - For large organizations, custom integrations, dedicated support\n\nCommunication style:\n- Be enthusiastic but not pushy\n- Focus on understanding customer needs\n- Provide honest comparisons\n- Offer to schedule demos for complex questions",
+          "llm": {
+            "provider": "google-genai",
+            "model": "gemini-3-flash-preview",
+            "reasoningEffort": "high"
+          },
+          "unifiedTools": {
+            "enabled": [
+              "system:get_user_profile",
+              "system:get_journey_context",
+              "system:exit_to_next_node",
+              "system:read_user_variable"
+            ]
+          },
+          "history": {
+            "strategy": "simple",
+            "maxMessages": 20
+          }
+        }
+      },
+      {
+        "id": "end",
+        "type": "end",
+        "position": { "x": 980, "y": 150 },
+        "data": { "name": "End" }
+      }
+    ],
+    "edges": [
+      { "id": "e-start-guard", "source": "start", "target": "guard-safety" },
+      { "id": "e-guard-blocked", "source": "guard-safety", "target": "blocked-end", "sourceHandle": "blocked" },
+      { "id": "e-guard-router", "source": "guard-safety", "target": "agent-router", "sourceHandle": "passed" },
+      { "id": "e-router-if", "source": "agent-router", "target": "if-intent" },
+      { "id": "e-if-support", "source": "if-intent", "target": "agent-support", "sourceHandle": "yes" },
+      { "id": "e-if-sales", "source": "if-intent", "target": "agent-sales", "sourceHandle": "no" },
+      { "id": "e-support-end", "source": "agent-support", "target": "end" },
+      { "id": "e-sales-end", "source": "agent-sales", "target": "end" }
+    ]
+  }
+}

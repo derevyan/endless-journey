@@ -1,0 +1,72 @@
+{
+  "$schema": "../workflow-schema.json",
+  "id": "wf-question-understanding-001",
+  "key": "question-understanding",
+  "name": "Question Understanding",
+  "description": "Demo workflow with Question Understanding preprocessing. Synthesizes unanswered questions before passing to agent.",
+  "status": "active",
+  "configuration": {
+    "nodes": [
+      {
+        "id": "start",
+        "type": "start",
+        "position": { "x": 50, "y": 150 },
+        "data": { "name": "Start" }
+      },
+      {
+        "id": "question-understanding",
+        "type": "question_understanding",
+        "position": { "x": 210, "y": 150 },
+        "data": {
+          "name": "Question",
+          "outputVariable": "synthesized_question",
+          "includeReasoning": false
+        }
+      },
+      {
+        "id": "agent-assistant",
+        "type": "agent",
+        "position": { "x": 370, "y": 150 },
+        "data": {
+          "name": "Demo Assistant",
+          "systemPrompt": "You are a helpful assistant for the Journey platform demo.\nYour role is to:\n- Answer questions about the platform\n- Help users understand features\n- Provide friendly, concise responses\n\nKeep responses brief and helpful. If you don't know something, be honest about it.",
+          "llm": {
+            "provider": "google-genai",
+            "model": "gemini-3-flash-preview",
+            "reasoningEffort": "high"
+          },
+          "unifiedTools": {
+            "enabled": ["system:get_user_profile", "system:get_journey_context", "system:exit_to_next_node", "utility:current_time"]
+          },
+          "history": {
+            "strategy": "simple",
+            "maxMessages": 12
+          }
+        }
+      },
+      {
+        "id": "end",
+        "type": "end",
+        "position": { "x": 660, "y": 150 },
+        "data": { "name": "End" }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-start-qu",
+        "source": "start",
+        "target": "question-understanding"
+      },
+      {
+        "id": "e-qu-agent",
+        "source": "question-understanding",
+        "target": "agent-assistant"
+      },
+      {
+        "id": "e-agent-end",
+        "source": "agent-assistant",
+        "target": "end"
+      }
+    ]
+  }
+}

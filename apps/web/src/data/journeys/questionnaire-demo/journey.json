@@ -1,0 +1,227 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "data": {
+        "type": "start",
+        "label": "$content:start.label",
+        "content": "$content:start.content"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Questionnaire Demo: entry point",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2026-01-13T00:00:00.000Z",
+        "updatedAt": "2026-01-13T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 0
+      }
+    },
+    {
+      "id": "questionnaire-agent",
+      "data": {
+        "type": "agent",
+        "label": "$content:questionnaire-agent.label",
+        "plugins": [
+          {
+            "ai": {
+              "enabled": true
+            },
+            "label": "Follow-Up",
+            "steps": [
+              {
+                "id": "step-followup-1",
+                "delay": {
+                  "minutes": 0,
+                  "seconds": 30
+                },
+                "buttons": [],
+                "content": "$content:questionnaire-agent.plugins.0.steps.0.content",
+                "exitOnTimeout": false
+              },
+              {
+                "id": "step-followup-2",
+                "delay": {
+                  "minutes": 0,
+                  "seconds": 30
+                },
+                "buttons": [],
+                "content": "$content:questionnaire-agent.plugins.0.steps.1.content",
+                "exitOnTimeout": false
+              }
+            ],
+            "enabled": true,
+            "exitPath": {
+              "nodeId": "exit-timeout"
+            },
+            "pluginType": "followup",
+            "cancelOnAnyResponse": true
+          }
+        ],
+        "welcome": {
+          "message": "$content:questionnaire-agent.welcome.message"
+        },
+        "workflowKey": "questionnaire-demo",
+        "executionMode": "immediate",
+        "initialPrompt": {
+          "template": "$content:questionnaire-agent.initialPrompt.template"
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Questionnaire Agent",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2026-01-13T00:00:00.000Z",
+        "updatedAt": "2026-01-13T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 200
+      }
+    },
+    {
+      "id": "webhook-export",
+      "data": {
+        "url": "https://example.com/webhook/your-webhook-id",
+        "body": "{\"sessionId\": \"{{session.id}}\", \"userId\": \"{{user.id}}\", \"userName\": \"{{user.firstName}}\", \"questionnaire\": {{nodes.Agent_Questionnaire.allResponses}}}",
+        "type": "webhook",
+        "label": "$content:webhook-export.label",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "timeoutMs": 30000,
+        "retryCount": 1,
+        "errorHandling": "continue"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Export questionnaire data to external pipeline",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2026-01-13T00:00:00.000Z",
+        "updatedAt": "2026-01-13T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 400
+      }
+    },
+    {
+      "id": "success-message",
+      "data": {
+        "type": "message",
+        "label": "$content:success-message.label",
+        "content": "$content:success-message.content",
+        "responseType": "auto"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Success feedback message before end",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2026-01-14T00:00:00.000Z",
+        "updatedAt": "2026-01-14T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 550
+      }
+    },
+    {
+      "id": "end",
+      "data": {
+        "type": "end",
+        "label": "$content:end.label",
+        "content": "$content:end.content"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Questionnaire Demo: success end state",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2026-01-13T00:00:00.000Z",
+        "updatedAt": "2026-01-13T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 700
+      }
+    },
+    {
+      "id": "exit-timeout",
+      "data": {
+        "type": "end",
+        "label": "$content:exit-timeout.label",
+        "content": "$content:exit-timeout.content"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Timeout exit for non-responsive users",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2026-01-13T00:00:00.000Z",
+        "updatedAt": "2026-01-13T00:00:00.000Z"
+      },
+      "position": {
+        "x": 700,
+        "y": 400
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-start-questionnaire",
+      "label": "$content:e-start-questionnaire.label",
+      "source": "start",
+      "target": "questionnaire-agent",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-questionnaire-webhook",
+      "label": "$content:e-questionnaire-webhook.label",
+      "source": "questionnaire-agent",
+      "target": "webhook-export",
+      "animated": false,
+      "edgeType": "default",
+      "sourceHandle": "output"
+    },
+    {
+      "id": "e-webhook-success",
+      "label": "$content:e-webhook-success.label",
+      "source": "webhook-export",
+      "target": "success-message",
+      "animated": false,
+      "edgeType": "success",
+      "sourceHandle": "success"
+    },
+    {
+      "id": "e-webhook-error",
+      "label": "$content:e-webhook-error.label",
+      "source": "webhook-export",
+      "target": "success-message",
+      "animated": false,
+      "edgeType": "retry",
+      "sourceHandle": "error"
+    },
+    {
+      "id": "e-success-end",
+      "label": "",
+      "source": "success-message",
+      "target": "end",
+      "animated": false,
+      "edgeType": "default"
+    }
+  ]
+}

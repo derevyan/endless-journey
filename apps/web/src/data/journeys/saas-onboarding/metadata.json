@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "exportedAt": "2026-01-16T10:54:48.283Z",
+  "journey": {
+    "id": "a1b2c3d4-e5f6-4a7b-8c9d-ae1f2a3b4c5d",
+    "slug": "saas-onboarding",
+    "name": "SaaS Onboarding Demo",
+    "description": "Complete onboarding flow with CRM pipeline, buttons, timers, webhooks, and multiple end states",
+    "status": "active",
+    "mindstateConfig": null,
+    "transferAllowlist": null,
+    "createdAt": "2026-01-16T04:30:06.568Z",
+    "updatedAt": "2026-01-16T04:30:06.936Z"
+  },
+  "references": {
+    "defaultPipelineSlug": null,
+    "transferAllowlistSlugs": null
+  }
+}

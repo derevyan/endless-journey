@@ -1,0 +1,1091 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "data": {
+        "type": "start",
+        "label": "$content:start.label",
+        "content": "$content:start.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "support-active",
+              "ticket-open"
+            ]
+          }
+        },
+        "variableAction": {
+          "scope": "journey",
+          "operations": [
+            {
+              "op": "increment",
+              "key": "total_tickets",
+              "amount": 1
+            }
+          ]
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Support journey entry point",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 0
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "issue-category",
+      "data": {
+        "type": "message",
+        "label": "$content:issue-category.label",
+        "buttons": [
+          {
+            "id": "btn-technical",
+            "text": "$content:issue-category.buttons.0.text",
+            "targetNodeId": "technical-details"
+          },
+          {
+            "id": "btn-billing",
+            "text": "$content:issue-category.buttons.1.text",
+            "targetNodeId": "billing-details"
+          },
+          {
+            "id": "btn-howto",
+            "text": "$content:issue-category.buttons.2.text",
+            "targetNodeId": "knowledge-base"
+          },
+          {
+            "id": "btn-account",
+            "text": "$content:issue-category.buttons.3.text",
+            "targetNodeId": "account-access"
+          },
+          {
+            "id": "btn-feature",
+            "text": "$content:issue-category.buttons.4.text",
+            "targetNodeId": "general-inquiry"
+          },
+          {
+            "id": "btn-bug",
+            "text": "$content:issue-category.buttons.5.text",
+            "targetNodeId": "general-inquiry"
+          }
+        ],
+        "content": "$content:issue-category.content",
+        "plugins": [
+          {
+            "label": "Follow-Up",
+            "steps": [
+              {
+                "id": "step-timeout",
+                "delay": {
+                  "hours": 1
+                },
+                "content": "$content:issue-category.plugins.0.steps.0.content",
+                "exitOnTimeout": true
+              }
+            ],
+            "enabled": true,
+            "exitPath": {
+              "nodeId": "general-inquiry"
+            },
+            "pluginType": "followup",
+            "cancelOnAnyResponse": true
+          }
+        ],
+        "responseType": "buttons",
+        "storeResponseAs": "issueCategory"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Categorize the support issue",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 200
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "technical-details",
+      "data": {
+        "type": "message",
+        "label": "$content:technical-details.label",
+        "content": "$content:technical-details.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "tech-support"
+            ]
+          }
+        },
+        "responseType": "text",
+        "storeResponseAs": "technicalDetails"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Gather technical issue details",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 100,
+        "y": 550
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "billing-details",
+      "data": {
+        "type": "message",
+        "label": "$content:billing-details.label",
+        "content": "$content:billing-details.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "billing-support"
+            ]
+          }
+        },
+        "responseType": "text",
+        "storeResponseAs": "billingDetails"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Gather billing issue details",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 300,
+        "y": 550
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "knowledge-base",
+      "data": {
+        "type": "message",
+        "label": "$content:knowledge-base.label",
+        "buttons": [
+          {
+            "id": "btn-found-it",
+            "text": "$content:knowledge-base.buttons.0.text",
+            "targetNodeId": "kb-check"
+          },
+          {
+            "id": "btn-chat-team",
+            "text": "$content:knowledge-base.buttons.1.text",
+            "targetNodeId": "kb-check"
+          }
+        ],
+        "content": "$content:knowledge-base.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "kb-user"
+            ]
+          }
+        },
+        "responseType": "buttons",
+        "storeResponseAs": "kbResponse"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Self-service knowledge base",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 500,
+        "y": 550
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "account-access",
+      "data": {
+        "type": "message",
+        "label": "$content:account-access.label",
+        "content": "$content:account-access.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "account-support",
+              "security-verification"
+            ]
+          }
+        },
+        "responseType": "text",
+        "storeResponseAs": "accountDetails"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Account access verification",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 700,
+        "y": 550
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "general-inquiry",
+      "data": {
+        "type": "message",
+        "label": "$content:general-inquiry.label",
+        "content": "$content:general-inquiry.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "general-support"
+            ]
+          }
+        },
+        "responseType": "text",
+        "storeResponseAs": "generalInquiry"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Catch-all for other requests",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 900,
+        "y": 550
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "ticket-created",
+      "data": {
+        "type": "message",
+        "label": "$content:ticket-created.label",
+        "content": "$content:ticket-created.content",
+        "responseType": "auto"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Confirm ticket creation",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 950
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "notify-team",
+      "data": {
+        "url": "https://api.productflow.com/support/tickets",
+        "body": "{\"userId\": \"{{user.id}}\", \"category\": \"{{context.issueCategory}}\", \"details\": \"{{context.technicalDetails || context.billingDetails || context.accountDetails || context.generalInquiry}}\", \"priority\": \"standard\", \"timestamp\": \"{{context.currentTime}}\"}",
+        "type": "webhook",
+        "label": "$content:notify-team.label",
+        "method": "POST",
+        "content": "$content:notify-team.content",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{secrets.SUPPORT_API_TOKEN}}"
+        },
+        "storeAs": "ticketId",
+        "timeoutMs": 5000,
+        "successPath": "$.ticket.id",
+        "mockResponse": {
+          "body": {
+            "ticket": {
+              "id": "TKT-2024-00123",
+              "status": "open",
+              "assignedTo": "support_team"
+            }
+          },
+          "delay": 400,
+          "enabled": true,
+          "statusCode": 200
+        },
+        "errorHandling": "continue"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Webhook: Create ticket in support system",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 1150
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "wait-for-resolution",
+      "data": {
+        "type": "wait",
+        "label": "$content:wait-for-resolution.label",
+        "reason": "$content:wait-for-resolution.reason",
+        "content": "$content:wait-for-resolution.content",
+        "duration": {
+          "seconds": 14400
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Wait 4 hours for team response",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 1350
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "resolution-message",
+      "data": {
+        "type": "message",
+        "label": "$content:resolution-message.label",
+        "timer": {
+          "seconds": 86400
+        },
+        "buttons": [
+          {
+            "id": "btn-all-good",
+            "text": "$content:resolution-message.buttons.0.text",
+            "targetNodeId": "satisfaction-check"
+          },
+          {
+            "id": "btn-still-issues",
+            "text": "$content:resolution-message.buttons.1.text",
+            "targetNodeId": "satisfaction-check"
+          }
+        ],
+        "content": "$content:resolution-message.content",
+        "responseType": "buttons",
+        "storeResponseAs": "satisfactionResponse"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Confirm resolution with user",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 1550
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "satisfaction-check",
+      "data": {
+        "type": "condition",
+        "label": "$content:satisfaction-check.label",
+        "rules": [
+          {
+            "field": "context.userResponse.value",
+            "value": "All Good",
+            "operator": "contains"
+          }
+        ],
+        "content": "$content:satisfaction-check.content",
+        "branches": [
+          {
+            "id": "branch-satisfied",
+            "label": "$content:satisfaction-check.branches.0.label"
+          },
+          {
+            "id": "branch-default",
+            "label": "$content:satisfaction-check.branches.1.label",
+            "isDefault": true
+          }
+        ],
+        "expression": "context.satisfactionResponse"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Branch on satisfaction response",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 1750
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "feedback-request",
+      "data": {
+        "type": "message",
+        "label": "$content:feedback-request.label",
+        "timer": {
+          "seconds": 172800
+        },
+        "buttons": [
+          {
+            "id": "btn-rating-1",
+            "text": "$content:feedback-request.buttons.0.text",
+            "targetNodeId": "thank-you-end"
+          },
+          {
+            "id": "btn-rating-2",
+            "text": "$content:feedback-request.buttons.1.text",
+            "targetNodeId": "thank-you-end"
+          },
+          {
+            "id": "btn-rating-3",
+            "text": "$content:feedback-request.buttons.2.text",
+            "targetNodeId": "thank-you-end"
+          },
+          {
+            "id": "btn-rating-4",
+            "text": "$content:feedback-request.buttons.3.text",
+            "targetNodeId": "thank-you-end"
+          },
+          {
+            "id": "btn-rating-5",
+            "text": "$content:feedback-request.buttons.4.text",
+            "targetNodeId": "thank-you-end"
+          }
+        ],
+        "content": "$content:feedback-request.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "ticket-closed",
+              "satisfied"
+            ],
+            "remove": [
+              "support-active",
+              "ticket-open"
+            ]
+          }
+        },
+        "responseType": "buttons",
+        "variableAction": {
+          "scope": "journey",
+          "operations": [
+            {
+              "op": "increment",
+              "key": "resolved_tickets",
+              "amount": 1
+            }
+          ]
+        },
+        "storeResponseAs": "supportRating"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Collect support rating",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 200,
+        "y": 1950
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "thank-you-end",
+      "data": {
+        "type": "end",
+        "label": "$content:thank-you-end.label",
+        "content": "$content:thank-you-end.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "feedback-provided"
+            ]
+          }
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Success end with feedback",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 200,
+        "y": 2150
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "reopen-ticket",
+      "data": {
+        "type": "message",
+        "label": "$content:reopen-ticket.label",
+        "content": "$content:reopen-ticket.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "ticket-escalated"
+            ]
+          }
+        },
+        "responseType": "text",
+        "storeResponseAs": "escalationDetails"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Reopen and escalate ticket",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 700,
+        "y": 1950
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "escalate-end",
+      "data": {
+        "type": "end",
+        "label": "$content:escalate-end.label",
+        "content": "$content:escalate-end.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "high-priority"
+            ],
+            "remove": [
+              "ticket-closed"
+            ]
+          }
+        },
+        "variableAction": {
+          "scope": "journey",
+          "operations": [
+            {
+              "op": "increment",
+              "key": "escalated_tickets",
+              "amount": 1
+            }
+          ]
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Escalation end state",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 700,
+        "y": 2150
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "kb-check",
+      "data": {
+        "type": "condition",
+        "label": "$content:kb-check.label",
+        "rules": [
+          {
+            "field": "context.userResponse.value",
+            "value": "Found It",
+            "operator": "contains"
+          }
+        ],
+        "content": "$content:kb-check.content",
+        "branches": [
+          {
+            "id": "branch-resolved",
+            "label": "$content:kb-check.branches.0.label"
+          },
+          {
+            "id": "branch-default",
+            "label": "$content:kb-check.branches.1.label",
+            "isDefault": true
+          }
+        ],
+        "expression": "context.kbResponse"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Check if KB resolved the issue",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 500,
+        "y": 750
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    },
+    {
+      "id": "kb-resolved-end",
+      "data": {
+        "type": "end",
+        "label": "$content:kb-resolved-end.label",
+        "content": "$content:kb-resolved-end.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "self-service-success"
+            ],
+            "remove": [
+              "support-active",
+              "ticket-open"
+            ]
+          }
+        },
+        "variableAction": {
+          "scope": "journey",
+          "operations": [
+            {
+              "op": "increment",
+              "key": "self_service_resolutions",
+              "amount": 1
+            }
+          ]
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "User resolved via KB",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "updatedAt": "2024-01-02T00:00:00.000Z"
+      },
+      "position": {
+        "x": 300,
+        "y": 950
+      },
+      "sourcePosition": "bottom",
+      "targetPosition": "top"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-start-category",
+      "source": "start",
+      "target": "issue-category",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "managed-btn::issue-category::btn-technical",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "issue-category",
+      "target": "technical-details",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-technical",
+      "sourceHandle": "btn-technical"
+    },
+    {
+      "id": "managed-btn::issue-category::btn-billing",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "issue-category",
+      "target": "billing-details",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-billing",
+      "sourceHandle": "btn-billing"
+    },
+    {
+      "id": "managed-btn::issue-category::btn-howto",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "issue-category",
+      "target": "knowledge-base",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-howto",
+      "sourceHandle": "btn-howto"
+    },
+    {
+      "id": "managed-btn::issue-category::btn-account",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "issue-category",
+      "target": "account-access",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-account",
+      "sourceHandle": "btn-account"
+    },
+    {
+      "id": "managed-btn::issue-category::btn-feature",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "issue-category",
+      "target": "general-inquiry",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-feature",
+      "sourceHandle": "btn-feature"
+    },
+    {
+      "id": "managed-btn::issue-category::btn-bug",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "issue-category",
+      "target": "general-inquiry",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-bug",
+      "sourceHandle": "btn-bug"
+    },
+    {
+      "id": "managed-btn::knowledge-base::btn-found-it",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "knowledge-base",
+      "target": "kb-check",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-found-it",
+      "sourceHandle": "btn-found-it"
+    },
+    {
+      "id": "managed-btn::knowledge-base::btn-chat-team",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "knowledge-base",
+      "target": "kb-check",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-chat-team",
+      "sourceHandle": "btn-chat-team"
+    },
+    {
+      "id": "e-kb-resolved",
+      "label": "$content:e-kb-resolved.label",
+      "source": "kb-check",
+      "target": "kb-resolved-end",
+      "animated": false,
+      "edgeType": "success",
+      "sourceHandle": "branch-resolved"
+    },
+    {
+      "id": "e-kb-needs-support",
+      "label": "$content:e-kb-needs-support.label",
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 2
+      },
+      "source": "kb-check",
+      "target": "ticket-created",
+      "animated": false,
+      "edgeType": "default",
+      "sourceHandle": "branch-default"
+    },
+    {
+      "id": "e-technical-ticket",
+      "source": "technical-details",
+      "target": "ticket-created",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-billing-ticket",
+      "source": "billing-details",
+      "target": "ticket-created",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-account-ticket",
+      "source": "account-access",
+      "target": "ticket-created",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-general-ticket",
+      "source": "general-inquiry",
+      "target": "ticket-created",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-ticket-notify",
+      "source": "ticket-created",
+      "target": "notify-team",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-notify-wait",
+      "label": "$content:e-notify-wait.label",
+      "source": "notify-team",
+      "target": "wait-for-resolution",
+      "animated": false,
+      "edgeType": "success"
+    },
+    {
+      "id": "e-notify-error",
+      "label": "$content:e-notify-error.label",
+      "source": "notify-team",
+      "target": "escalate-end",
+      "animated": false,
+      "edgeType": "default",
+      "sourceHandle": "error"
+    },
+    {
+      "id": "e-wait-resolved",
+      "label": "$content:e-wait-resolved.label",
+      "source": "wait-for-resolution",
+      "target": "resolution-message",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "managed-btn::resolution-message::btn-all-good",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "resolution-message",
+      "target": "satisfaction-check",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-all-good",
+      "sourceHandle": "btn-all-good"
+    },
+    {
+      "id": "managed-btn::resolution-message::btn-still-issues",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "resolution-message",
+      "target": "satisfaction-check",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-still-issues",
+      "sourceHandle": "btn-still-issues"
+    },
+    {
+      "id": "e-resolution-timer",
+      "label": "$content:e-resolution-timer.label",
+      "source": "resolution-message",
+      "target": "escalate-end",
+      "animated": false,
+      "edgeType": "timer",
+      "sourceHandle": "timer"
+    },
+    {
+      "id": "e-check-satisfied",
+      "label": "$content:e-check-satisfied.label",
+      "source": "satisfaction-check",
+      "target": "feedback-request",
+      "animated": false,
+      "edgeType": "success",
+      "sourceHandle": "branch-satisfied"
+    },
+    {
+      "id": "managed-btn::feedback-request::btn-rating-1",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "feedback-request",
+      "target": "thank-you-end",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-rating-1",
+      "sourceHandle": "btn-rating-1"
+    },
+    {
+      "id": "managed-btn::feedback-request::btn-rating-2",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "feedback-request",
+      "target": "thank-you-end",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-rating-2",
+      "sourceHandle": "btn-rating-2"
+    },
+    {
+      "id": "managed-btn::feedback-request::btn-rating-3",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "feedback-request",
+      "target": "thank-you-end",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-rating-3",
+      "sourceHandle": "btn-rating-3"
+    },
+    {
+      "id": "managed-btn::feedback-request::btn-rating-4",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "feedback-request",
+      "target": "thank-you-end",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-rating-4",
+      "sourceHandle": "btn-rating-4"
+    },
+    {
+      "id": "managed-btn::feedback-request::btn-rating-5",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "feedback-request",
+      "target": "thank-you-end",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-rating-5",
+      "sourceHandle": "btn-rating-5"
+    },
+    {
+      "id": "e-feedback-timer",
+      "label": "$content:e-feedback-timer.label",
+      "source": "feedback-request",
+      "target": "thank-you-end",
+      "animated": false,
+      "edgeType": "timer",
+      "sourceHandle": "timer"
+    },
+    {
+      "id": "e-check-reopen",
+      "label": "$content:e-check-reopen.label",
+      "source": "satisfaction-check",
+      "target": "reopen-ticket",
+      "animated": false,
+      "edgeType": "retry",
+      "sourceHandle": "branch-default"
+    },
+    {
+      "id": "e-reopen-escalate",
+      "style": {
+        "stroke": "#ef4444",
+        "strokeWidth": 2
+      },
+      "source": "reopen-ticket",
+      "target": "escalate-end",
+      "animated": false,
+      "edgeType": "default"
+    }
+  ]
+}

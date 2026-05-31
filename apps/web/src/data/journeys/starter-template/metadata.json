@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "exportedAt": "2026-01-16T10:54:57.547Z",
+  "journey": {
+    "id": "b2c3d4e5-f6a7-4b8c-9d0e-8f2a3b4c5d6e",
+    "slug": "starter-template",
+    "name": "Starter Template",
+    "description": "Simple linear flow template: Start → Message → Timer → Message → End",
+    "status": "active",
+    "mindstateConfig": null,
+    "transferAllowlist": null,
+    "createdAt": "2026-01-16T04:30:06.573Z",
+    "updatedAt": "2026-01-16T04:30:06.938Z"
+  },
+  "references": {
+    "defaultPipelineSlug": null,
+    "transferAllowlistSlugs": null
+  }
+}

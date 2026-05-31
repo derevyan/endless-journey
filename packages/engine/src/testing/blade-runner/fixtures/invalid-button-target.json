@@ -1,0 +1,70 @@
+{
+  "_comment": "This journey has a button pointing to non-existent node 'non-existent-node' - should trigger INVALID_BUTTON_TARGET error",
+  "nodes": [
+    {
+      "id": "start",
+      "data": {
+        "type": "start",
+        "label": "Welcome",
+        "content": "Welcome to the demo!"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 0 }
+    },
+    {
+      "id": "broken-choice",
+      "data": {
+        "type": "message",
+        "label": "Broken Choice",
+        "content": "Click the broken button:",
+        "buttons": [
+          {
+            "id": "btn-broken",
+            "text": "Click me (broken)",
+            "targetNodeId": "non-existent-node"
+          }
+        ],
+        "responseType": "buttons"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 150 }
+    },
+    {
+      "id": "message-1",
+      "data": {
+        "type": "message",
+        "label": "Info",
+        "content": "You should not get here via the broken button."
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 300 }
+    },
+    {
+      "id": "end",
+      "data": {
+        "type": "end",
+        "label": "Goodbye"
+      },
+      "type": "custom",
+      "position": { "x": 0, "y": 450 }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-start-choice",
+      "source": "start",
+      "target": "broken-choice"
+    },
+    {
+      "id": "edge-choice-msg",
+      "source": "broken-choice",
+      "target": "message-1",
+      "sourceHandle": "btn-broken"
+    },
+    {
+      "id": "edge-msg-end",
+      "source": "message-1",
+      "target": "end"
+    }
+  ]
+}

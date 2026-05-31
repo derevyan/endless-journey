@@ -1,0 +1,40 @@
+{
+  "version": "1.0",
+  "variables": [
+    {
+      "key": "journey_starts",
+      "value": 127,
+      "description": "Number of users who started this journey"
+    },
+    {
+      "key": "plan_selections",
+      "value": {
+        "pro": 52,
+        "basic": 45,
+        "enterprise": 18
+      },
+      "description": "Count of plan selections by type"
+    },
+    {
+      "key": "avg_completion_time_hours",
+      "value": 48.5,
+      "description": "Average time to complete the journey in hours"
+    },
+    {
+      "key": "conversion_rate",
+      "value": 0.33,
+      "description": "Current conversion rate (converted / started)"
+    },
+    {
+      "key": "feedback_responses",
+      "value": [
+        "Team collaboration",
+        "Project management",
+        "Analytics",
+        "Security compliance",
+        "Getting organized"
+      ],
+      "description": "Sample feedback responses from users"
+    }
+  ]
+}

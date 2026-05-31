@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "content": {
+    "start.label": {
+      "value": "START"
+    },
+    "start.content": {
+      "value": "New user begins their journey"
+    },
+    "welcome.label": {
+      "value": "Welcome"
+    },
+    "welcome.content": {
+      "value": "Welcome! Ready to get started?"
+    },
+    "welcome.buttons.0.text": {
+      "value": "Let's Go!"
+    },
+    "welcome.plugins.0.steps.0.content": {
+      "value": "Hey, still there? Just checking in!"
+    },
+    "welcome.plugins.0.steps.0.buttons.0.text": {
+      "value": "I'm Ready"
+    },
+    "end.label": {
+      "value": "Complete"
+    },
+    "end.content": {
+      "value": "Great! You've completed the journey."
+    },
+    "exit-inactive.label": {
+      "value": "Inactive Exit"
+    },
+    "exit-inactive.content": {
+      "value": "User did not respond"
+    },
+    "e-start-welcome.label": {
+      "value": "Begin"
+    }
+  }
+}

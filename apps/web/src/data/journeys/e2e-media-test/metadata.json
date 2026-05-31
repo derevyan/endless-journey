@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "exportedAt": "2026-01-16T10:39:01.740Z",
+  "journey": {
+    "id": "f7a8b9c0-d1e2-4f3a-ab4c-5d6e7f8a9b0c",
+    "slug": "e2e-media-test",
+    "name": "E2E Media Test",
+    "description": "Minimal test journey for media upload e2e tests",
+    "status": "active",
+    "mindstateConfig": null,
+    "transferAllowlist": null,
+    "createdAt": "2026-01-16T04:30:06.596Z",
+    "updatedAt": "2026-01-16T04:30:06.959Z"
+  },
+  "references": {
+    "defaultPipelineSlug": null,
+    "transferAllowlistSlugs": null
+  }
+}

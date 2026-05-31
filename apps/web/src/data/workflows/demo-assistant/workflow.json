@@ -1,0 +1,57 @@
+{
+  "$schema": "../workflow-schema.json",
+  "id": "wf-demo-assistant-001",
+  "key": "demo-assistant",
+  "name": "Demo Assistant",
+  "description": "Simple demo workflow with basic agent. Start → Agent → End.",
+  "status": "active",
+  "configuration": {
+    "nodes": [
+      {
+        "id": "start",
+        "type": "start",
+        "position": { "x": 50, "y": 150 },
+        "data": { "name": "Start" }
+      },
+      {
+        "id": "agent-assistant",
+        "type": "agent",
+        "position": { "x": 210, "y": 150 },
+        "data": {
+          "name": "Demo Assistant",
+          "systemPrompt": "You are a helpful assistant for the Journey platform demo.\nYour role is to:\n- Answer questions about the platform\n- Help users understand features\n- Provide friendly, concise responses\n\nKeep responses brief and helpful. If you don't know something, be honest about it.\n\nJust respond naturally - the system will deliver your message. After responding, call exit_to_next_node to finish this step.",
+          "llm": {
+            "provider": "google-genai",
+            "model": "gemini-3-flash-preview",
+            "reasoningEffort": "high"
+          },
+          "unifiedTools": {
+            "enabled": ["system:get_user_profile", "system:get_journey_context", "system:exit_to_next_node", "utility:current_time"]
+          },
+          "history": {
+            "strategy": "simple",
+            "maxMessages": 12
+          }
+        }
+      },
+      {
+        "id": "end",
+        "type": "end",
+        "position": { "x": 500, "y": 150 },
+        "data": { "name": "End" }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-start-agent",
+        "source": "start",
+        "target": "agent-assistant"
+      },
+      {
+        "id": "e-agent-end",
+        "source": "agent-assistant",
+        "target": "end"
+      }
+    ]
+  }
+}

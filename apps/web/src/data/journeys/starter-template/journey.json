@@ -1,0 +1,148 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "data": {
+        "type": "start",
+        "label": "$content:start.label",
+        "content": "$content:start.content"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Starter template: begin flow",
+        "custom": {},
+        "status": "draft",
+        "version": "1.0.0",
+        "createdAt": "2025-02-01T00:00:00.000Z",
+        "updatedAt": "2025-02-01T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 0
+      }
+    },
+    {
+      "id": "welcome",
+      "data": {
+        "type": "message",
+        "label": "$content:welcome.label",
+        "buttons": [
+          {
+            "id": "btn-continue",
+            "text": "$content:welcome.buttons.0.text",
+            "targetNodeId": "end"
+          }
+        ],
+        "content": "$content:welcome.content",
+        "plugins": [
+          {
+            "label": "Follow-Up",
+            "steps": [
+              {
+                "id": "step-1",
+                "delay": {
+                  "minutes": 5
+                },
+                "buttons": [
+                  {
+                    "id": "btn-ready",
+                    "text": "$content:welcome.plugins.0.steps.0.buttons.0.text",
+                    "targetNodeId": "end"
+                  }
+                ],
+                "content": "$content:welcome.plugins.0.steps.0.content",
+                "exitOnTimeout": true
+              }
+            ],
+            "enabled": true,
+            "exitPath": {
+              "nodeId": "exit-inactive"
+            },
+            "pluginType": "followup",
+            "cancelOnAnyResponse": true
+          }
+        ],
+        "responseType": "buttons"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Welcome message with button and follow-up reminder",
+        "custom": {},
+        "status": "draft",
+        "version": "1.0.0",
+        "createdAt": "2025-02-01T00:00:00.000Z",
+        "updatedAt": "2025-02-01T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 200
+      }
+    },
+    {
+      "id": "end",
+      "data": {
+        "type": "end",
+        "label": "$content:end.label",
+        "content": "$content:end.content"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Starter template: successful completion",
+        "custom": {},
+        "status": "draft",
+        "version": "1.0.0",
+        "createdAt": "2025-02-01T00:00:00.000Z",
+        "updatedAt": "2025-02-01T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 550
+      }
+    },
+    {
+      "id": "exit-inactive",
+      "data": {
+        "type": "end",
+        "label": "$content:exit-inactive.label",
+        "content": "$content:exit-inactive.content"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Starter template: user did not respond",
+        "custom": {},
+        "status": "draft",
+        "version": "1.0.0",
+        "createdAt": "2025-02-01T00:00:00.000Z",
+        "updatedAt": "2025-02-01T00:00:00.000Z"
+      },
+      "position": {
+        "x": 850,
+        "y": 550
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-start-welcome",
+      "label": "$content:e-start-welcome.label",
+      "source": "start",
+      "target": "welcome",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "managed-btn::welcome::btn-continue",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "welcome",
+      "target": "end",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-continue",
+      "sourceHandle": "btn-continue"
+    }
+  ]
+}

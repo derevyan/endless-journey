@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "content": {
+    "start.label": {
+      "value": "START"
+    },
+    "start.content": {
+      "value": "Begin Voice-to-Voice test journey"
+    },
+    "voice-agent.label": {
+      "value": "Voice-to-Voice Agent"
+    },
+    "voice-agent.welcome.message": {
+      "value": "Hi there! I'm your conversational assistant. Send me a text or voice message - I'll respond in kind!"
+    },
+    "end.label": {
+      "value": "END"
+    },
+    "end.content": {
+      "value": "Thanks for testing voice-to-voice mode! Say goodbye to end."
+    },
+    "e-start-agent.label": {
+      "value": "start"
+    },
+    "e-agent-end.label": {
+      "value": "goodbye"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "exportedAt": "2026-01-16T10:38:55.912Z",
+  "journey": {
+    "id": "f6a7b8c9-d0e1-4f2a-9b3c-4d5e6f7a8b9c",
+    "slug": "ai-agent-minimal",
+    "name": "AI Agent Minimal",
+    "description": "Minimal AI agent journey with embedded tools (time, Wikipedia, search)",
+    "status": "active",
+    "mindstateConfig": null,
+    "transferAllowlist": null,
+    "createdAt": "2026-01-16T04:30:06.582Z",
+    "updatedAt": "2026-01-16T04:30:06.948Z"
+  },
+  "references": {
+    "defaultPipelineSlug": null,
+    "transferAllowlistSlugs": null
+  }
+}

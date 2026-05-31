@@ -1,0 +1,19 @@
+{
+  "journeys": [
+    {
+      "id": "saas-onboarding",
+      "name": "SaaS Onboarding Demo",
+      "description": "Complete onboarding flow with CRM pipeline, buttons, timers, webhooks, and multiple end states"
+    },
+    {
+      "id": "support-triage",
+      "name": "Customer Support Triage",
+      "description": "Multi-branch support flow with category routing, ticket creation, and feedback collection"
+    },
+    {
+      "id": "starter-template",
+      "name": "Create new journey",
+      "description": "Simple linear flow template: Start → Message → Timer → Message → End"
+    }
+  ]
+}

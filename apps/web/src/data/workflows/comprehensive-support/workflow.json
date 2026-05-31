@@ -1,0 +1,218 @@
+{
+  "$schema": "../workflow-schema.json",
+  "id": "wf-comprehensive-support-001",
+  "key": "comprehensive-support",
+  "name": "Comprehensive Support Pipeline",
+  "description": "Full-featured demo showcasing all 10 node types: Start, Guard, Context, Transform, Set State, Agent, If/Else, User Approval, MCP, and End.",
+  "status": "active",
+  "configuration": {
+    "nodes": [
+      {
+        "id": "start",
+        "type": "start",
+        "position": { "x": 50, "y": 150 },
+        "data": { "name": "Start" }
+      },
+      {
+        "id": "guard-safety",
+        "type": "guard",
+        "position": { "x": 210, "y": 150 },
+        "data": {
+          "name": "Guard",
+          "workers": ["safety_guard", "injection_guard"],
+          "blockedMessage": "I cannot process that request due to safety concerns.",
+          "terminateOnBlock": false
+        }
+      },
+      {
+        "id": "end-blocked",
+        "type": "end",
+        "position": { "x": 210, "y": 280 },
+        "data": {
+          "name": "End-Blocked",
+          "outputTemplate": "Request blocked by safety guard."
+        }
+      },
+      {
+        "id": "context-inject",
+        "type": "context",
+        "position": { "x": 370, "y": 150 },
+        "data": {
+          "name": "Context",
+          "sources": [
+            { "type": "memory", "limit": 10 },
+            { "type": "knowledge_base", "source": "support-kb" }
+          ]
+        }
+      },
+      {
+        "id": "transform-extract",
+        "type": "transform",
+        "position": { "x": 530, "y": 150 },
+        "data": {
+          "name": "Transform",
+          "template": "{ \"user_context\": \"{{input}}\", \"extracted_at\": \"{{timestamp}}\" }",
+          "outputVariable": "user_context"
+        }
+      },
+      {
+        "id": "set-attempts",
+        "type": "set_state",
+        "position": { "x": 690, "y": 150 },
+        "data": {
+          "name": "Set State",
+          "key": "attempt_count",
+          "value": "0"
+        }
+      },
+      {
+        "id": "agent-router",
+        "type": "agent",
+        "position": { "x": 850, "y": 150 },
+        "data": {
+          "name": "Intent Router",
+          "systemPrompt": "You are an intent router. Classify the user's request as either \"urgent\" or \"standard\".\n\nUrgent requests include:\n- Service outages\n- Data loss concerns\n- Security issues\n- Billing emergencies\n\nRespond with JSON only.",
+          "llm": {
+            "provider": "google-genai",
+            "model": "gemini-3-flash-preview",
+            "reasoningEffort": "high"
+          },
+          "unifiedTools": {
+            "enabled": ["system:get_user_profile", "system:get_journey_context", "system:read_journey_variable"]
+          },
+          "responseFormat": {
+            "type": "json_schema",
+            "name": "intent_classification",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "intent": { "type": "string", "enum": ["urgent", "standard"] },
+                "confidence": { "type": "number" }
+              },
+              "required": ["intent"]
+            },
+            "strict": true
+          },
+          "outputVariable": "router_result",
+          "history": { "strategy": "simple", "maxMessages": 4 }
+        }
+      },
+      {
+        "id": "if-urgent",
+        "type": "if_else",
+        "position": { "x": 1070, "y": 150 },
+        "data": {
+          "name": "If/Else",
+          "conditionType": "expression",
+          "condition": {
+            "left": "router_result.intent",
+            "operator": "===",
+            "right": "urgent"
+          }
+        }
+      },
+      {
+        "id": "approval-escalate",
+        "type": "user_approval",
+        "position": { "x": 1230, "y": 75 },
+        "data": {
+          "name": "Approval",
+          "message": "This request has been flagged as urgent. A support agent will review your case shortly.",
+          "timeoutSeconds": 300
+        }
+      },
+      {
+        "id": "mcp-ticket",
+        "type": "mcp",
+        "position": { "x": 1390, "y": 75 },
+        "data": {
+          "name": "MCP",
+          "server": "ticketing",
+          "tool": "create_ticket",
+          "params": {
+            "priority": "high",
+            "category": "urgent_support"
+          }
+        }
+      },
+      {
+        "id": "agent-escalation",
+        "type": "agent",
+        "position": { "x": 1550, "y": 75 },
+        "data": {
+          "name": "Escalation Specialist",
+          "systemPrompt": "You are a senior support escalation specialist. A ticket has been created for this urgent issue.\n\nYour role:\n- Acknowledge the urgency\n- Provide immediate troubleshooting if possible\n- Confirm the ticket has been created\n- Set expectations for follow-up\n\nBe empathetic and professional.",
+          "llm": {
+            "provider": "google-genai",
+            "model": "gemini-3-flash-preview",
+            "reasoningEffort": "high"
+          },
+          "unifiedTools": {
+            "enabled": [
+              "system:get_user_profile",
+              "system:get_journey_context",
+              "system:exit_to_next_node",
+              "system:read_journey_variable",
+              "system:write_journey_variable",
+              "system:read_user_variable",
+              "system:write_user_variable",
+              "system:save_memory",
+              "system:recall_memories"
+            ]
+          },
+          "history": { "strategy": "summarized", "maxMessages": 20 }
+        }
+      },
+      {
+        "id": "agent-standard",
+        "type": "agent",
+        "position": { "x": 1230, "y": 225 },
+        "data": {
+          "name": "Support Agent",
+          "systemPrompt": "You are a friendly customer support agent.\n\nHandle standard support requests:\n- Answer questions about features\n- Help with common issues\n- Provide documentation links\n- Guide through troubleshooting\n\nBe helpful and concise.",
+          "llm": {
+            "provider": "google-genai",
+            "model": "gemini-3-flash-preview",
+            "reasoningEffort": "high"
+          },
+          "unifiedTools": {
+            "enabled": [
+              "system:get_user_profile",
+              "system:get_journey_context",
+              "system:exit_to_next_node",
+              "system:read_journey_variable",
+              "system:read_user_variable",
+              "system:recall_memories"
+            ]
+          },
+          "history": { "strategy": "simple", "maxMessages": 12 }
+        }
+      },
+      {
+        "id": "end-resolved",
+        "type": "end",
+        "position": { "x": 1840, "y": 150 },
+        "data": {
+          "name": "End-Resolved",
+          "outputTemplate": "{{resolution}}"
+        }
+      }
+    ],
+    "edges": [
+      { "id": "e-start-guard", "source": "start", "target": "guard-safety" },
+      { "id": "e-guard-blocked", "source": "guard-safety", "target": "end-blocked", "sourceHandle": "blocked" },
+      { "id": "e-guard-context", "source": "guard-safety", "target": "context-inject", "sourceHandle": "passed" },
+      { "id": "e-context-transform", "source": "context-inject", "target": "transform-extract" },
+      { "id": "e-transform-setstate", "source": "transform-extract", "target": "set-attempts" },
+      { "id": "e-setstate-router", "source": "set-attempts", "target": "agent-router" },
+      { "id": "e-router-if", "source": "agent-router", "target": "if-urgent" },
+      { "id": "e-if-approval", "source": "if-urgent", "target": "approval-escalate", "sourceHandle": "yes" },
+      { "id": "e-approval-mcp", "source": "approval-escalate", "target": "mcp-ticket", "sourceHandle": "approved" },
+      { "id": "e-approval-standard", "source": "approval-escalate", "target": "agent-standard", "sourceHandle": "rejected" },
+      { "id": "e-mcp-escalation", "source": "mcp-ticket", "target": "agent-escalation" },
+      { "id": "e-escalation-end", "source": "agent-escalation", "target": "end-resolved" },
+      { "id": "e-if-standard", "source": "if-urgent", "target": "agent-standard", "sourceHandle": "no" },
+      { "id": "e-standard-end", "source": "agent-standard", "target": "end-resolved" }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@journey/schemas",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./api": "./src/api/index.ts",
+    "./config": "./src/config/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "NODE_ENV=test vitest run",
+    "test:questionnaire": "NODE_ENV=test vitest run src/__tests__/questionnaire.test.ts"
+  },
+  "dependencies": {
+    "zod": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.3",
+    "typescript": "~5.8.3",
+    "vitest": "^1.6.1"
+  }
+}

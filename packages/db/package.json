@@ -1,0 +1,45 @@
+{
+  "name": "@journey/db",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema/index.ts",
+    "./client": "./src/client.ts",
+    "./test-utils": "./src/test-utils/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "generate": "drizzle-kit generate",
+    "db:check": "drizzle-kit check --config drizzle.config.ts",
+    "migrate": "drizzle-kit migrate",
+    "push": "drizzle-kit push --force",
+    "studio": "drizzle-kit studio",
+    "seed": "tsx src/seed/index.ts",
+    "seed:core": "tsx src/seed/core.ts",
+    "seed:demo": "tsx src/seed/demo.ts",
+    "drop": "DB_RESET_CONFIRM=true tsx src/drop.ts",
+    "reset": "DB_RESET_CONFIRM=true tsx src/drop.ts && drizzle-kit push --force && tsx src/seed/index.ts",
+    "test:seed": "NODE_ENV=test tsx src/test-utils/seed-test-db.ts",
+    "test:cleanup": "NODE_ENV=test tsx src/test-utils/cleanup-test-garbage.ts",
+    "export:journey": "tsx src/export-journey.ts"
+  },
+  "dependencies": {
+    "@journey/logger": "workspace:*",
+    "@journey/schemas": "workspace:*",
+    "@noble/hashes": "^2.0.1",
+    "drizzle-orm": "^0.45.1",
+    "pgvector": "^0.2.0",
+    "postgres": "^3.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.3",
+    "dotenv": "^16.6.1",
+    "drizzle-kit": "^0.31.8",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.3"
+  }
+}

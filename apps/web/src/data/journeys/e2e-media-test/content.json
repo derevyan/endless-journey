@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "content": {
+    "start.label": {
+      "value": "START"
+    },
+    "start.content": {
+      "value": "E2E Media Test Journey"
+    },
+    "message.label": {
+      "value": "Test Media"
+    },
+    "message.content": {
+      "value": "Test node for media upload e2e tests"
+    },
+    "message.buttons.0.text": {
+      "value": "Done"
+    },
+    "end.label": {
+      "value": "END"
+    },
+    "end.content": {
+      "value": "Test complete"
+    }
+  }
+}

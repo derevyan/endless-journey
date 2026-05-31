@@ -1,0 +1,8 @@
+{
+  "name": "voice-director-v3",
+  "description": "Creative Voice Director for ElevenLabs v3 - uses audio tags [emotions], [actions], punctuation for pacing (NO SSML)",
+  "type": "chat",
+  "tags": ["voice", "tts", "system", "elevenlabs", "v3"],
+  "isSystem": true,
+  "scope": "global"
+}

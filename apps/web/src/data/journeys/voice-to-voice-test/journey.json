@@ -1,0 +1,91 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "data": {
+        "type": "start",
+        "label": "$content:start.label",
+        "content": "$content:start.content"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Voice-to-Voice Test: entry point",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-01-07T00:00:00.000Z",
+        "updatedAt": "2025-01-07T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 0
+      }
+    },
+    {
+      "id": "voice-agent",
+      "data": {
+        "type": "agent",
+        "label": "$content:voice-agent.label",
+        "welcome": {
+          "message": "$content:voice-agent.welcome.message"
+        },
+        "voiceMode": "voice-to-voice",
+        "workflowKey": "voice-test-assistant",
+        "voiceProfile": "alloy",
+        "executionMode": "welcome_first"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Voice-to-voice agent - mirrors user input type",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-01-07T00:00:00.000Z",
+        "updatedAt": "2025-01-07T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 200
+      }
+    },
+    {
+      "id": "end",
+      "data": {
+        "type": "end",
+        "label": "$content:end.label",
+        "content": "$content:end.content"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Voice-to-Voice Test: end state",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-01-07T00:00:00.000Z",
+        "updatedAt": "2025-01-07T00:00:00.000Z"
+      },
+      "position": {
+        "x": 450,
+        "y": 400
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-start-agent",
+      "label": "$content:e-start-agent.label",
+      "source": "start",
+      "target": "voice-agent",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-agent-end",
+      "label": "$content:e-agent-end.label",
+      "source": "voice-agent",
+      "target": "end",
+      "animated": false,
+      "edgeType": "default"
+    }
+  ]
+}

@@ -1,0 +1,1191 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "data": {
+        "type": "start",
+        "label": "$content:start.label",
+        "content": "$content:start.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "trial-user",
+              "new-signup",
+              "trial-started",
+              "onboarding"
+            ]
+          }
+        },
+        "variableAction": {
+          "scope": "journey",
+          "operations": [
+            {
+              "op": "increment",
+              "key": "journey_starts",
+              "amount": 1
+            }
+          ]
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Entry point: New trial user begins onboarding. Increments journey_starts counter.",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-11-28T00:00:00.000Z",
+        "updatedAt": "2025-11-28T00:00:00.000Z"
+      },
+      "position": {
+        "x": 500,
+        "y": 0
+      }
+    },
+    {
+      "id": "feature-intro",
+      "data": {
+        "type": "message",
+        "label": "$content:feature-intro.label",
+        "buttons": [
+          {
+            "id": "btn-basic-1",
+            "text": "$content:feature-intro.buttons.0.text",
+            "targetNodeId": "saas-helper-agent"
+          },
+          {
+            "id": "btn-pro-1",
+            "text": "$content:feature-intro.buttons.1.text",
+            "targetNodeId": "saas-helper-agent"
+          },
+          {
+            "id": "btn-enterprise-1",
+            "text": "$content:feature-intro.buttons.2.text",
+            "targetNodeId": "saas-helper-agent"
+          }
+        ],
+        "content": "$content:feature-intro.content",
+        "plugins": [
+          {
+            "label": "Follow-Up",
+            "steps": [
+              {
+                "id": "step-1",
+                "delay": {
+                  "hours": 2
+                },
+                "buttons": [
+                  {
+                    "id": "btn-basic-2",
+                    "text": "$content:feature-intro.plugins.0.steps.0.buttons.0.text",
+                    "targetNodeId": "saas-helper-agent"
+                  },
+                  {
+                    "id": "btn-pro-2",
+                    "text": "$content:feature-intro.plugins.0.steps.0.buttons.1.text",
+                    "targetNodeId": "saas-helper-agent"
+                  },
+                  {
+                    "id": "btn-enterprise-2",
+                    "text": "$content:feature-intro.plugins.0.steps.0.buttons.2.text",
+                    "targetNodeId": "saas-helper-agent"
+                  }
+                ],
+                "content": "$content:feature-intro.plugins.0.steps.0.content",
+                "exitOnTimeout": false
+              },
+              {
+                "id": "step-2",
+                "delay": {
+                  "hours": 24
+                },
+                "buttons": [
+                  {
+                    "id": "btn-basic-3",
+                    "text": "$content:feature-intro.plugins.0.steps.1.buttons.0.text",
+                    "targetNodeId": "saas-helper-agent"
+                  },
+                  {
+                    "id": "btn-pro-3",
+                    "text": "$content:feature-intro.plugins.0.steps.1.buttons.1.text",
+                    "targetNodeId": "saas-helper-agent"
+                  },
+                  {
+                    "id": "btn-enterprise-3",
+                    "text": "$content:feature-intro.plugins.0.steps.1.buttons.2.text",
+                    "targetNodeId": "saas-helper-agent"
+                  },
+                  {
+                    "id": "btn-not-interested",
+                    "text": "$content:feature-intro.plugins.0.steps.1.buttons.3.text",
+                    "targetNodeId": "exit-graceful"
+                  }
+                ],
+                "content": "$content:feature-intro.plugins.0.steps.1.content",
+                "exitOnTimeout": false
+              },
+              {
+                "id": "step-3",
+                "delay": {
+                  "hours": 24
+                },
+                "content": "$content:feature-intro.plugins.0.steps.2.content",
+                "exitOnTimeout": true
+              }
+            ],
+            "enabled": true,
+            "exitPath": {
+              "nodeId": "churned"
+            },
+            "pluginType": "followup",
+            "cancelOnAnyResponse": true
+          }
+        ],
+        "tagAction": {
+          "tags": {
+            "add": [
+              "awaiting-plan-selection"
+            ]
+          }
+        },
+        "responseType": "buttons",
+        "storeResponseAs": "selectedPlan"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Plan selection with inline follow-up sequence",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-11-28T00:00:00.000Z",
+        "updatedAt": "2025-11-28T00:00:00.000Z"
+      },
+      "position": {
+        "x": 500,
+        "y": 300
+      }
+    },
+    {
+      "id": "saas-helper-agent",
+      "data": {
+        "type": "agent",
+        "label": "$content:saas-helper-agent.label",
+        "welcome": {
+          "message": "$content:saas-helper-agent.welcome.message"
+        },
+        "tagAction": {
+          "tags": {
+            "add": [
+              "agent-interaction",
+              "pre-assessment-chat"
+            ]
+          }
+        },
+        "workflowKey": "demo-assistant",
+        "executionMode": "welcome_first"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "AI agent delegating to demo-assistant workflow for ProductFlow assistance",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-12-16T00:00:00.000Z",
+        "updatedAt": "2025-12-16T00:00:00.000Z"
+      },
+      "position": {
+        "x": 500,
+        "y": 700
+      }
+    },
+    {
+      "id": "needs-assessment",
+      "data": {
+        "type": "questionnaire",
+        "label": "$content:needs-assessment.label",
+        "plugins": [
+          {
+            "label": "Follow-Up",
+            "steps": [
+              {
+                "id": "reminder-1",
+                "delay": {
+                  "minutes": 5
+                },
+                "content": "$content:needs-assessment.plugins.0.steps.0.content",
+                "exitOnTimeout": true
+              }
+            ],
+            "enabled": true,
+            "exitPath": {
+              "nodeId": "churned"
+            },
+            "pluginType": "followup",
+            "cancelOnAnyResponse": true
+          }
+        ],
+        "timeout": {
+          "seconds": 300
+        },
+        "questions": [
+          {
+            "id": "q-experience",
+            "buttons": [
+              {
+                "id": "exp-beginner",
+                "text": "$content:needs-assessment.questions.0.buttons.0.text"
+              },
+              {
+                "id": "exp-intermediate",
+                "text": "$content:needs-assessment.questions.0.buttons.1.text"
+              },
+              {
+                "id": "exp-expert",
+                "text": "$content:needs-assessment.questions.0.buttons.2.text"
+              }
+            ],
+            "content": "$content:needs-assessment.questions.0.content",
+            "required": true,
+            "responseType": "buttons"
+          },
+          {
+            "id": "q-goal",
+            "buttons": [
+              {
+                "id": "goal-automate",
+                "text": "$content:needs-assessment.questions.1.buttons.0.text"
+              },
+              {
+                "id": "goal-engage",
+                "text": "$content:needs-assessment.questions.1.buttons.1.text"
+              },
+              {
+                "id": "goal-support",
+                "text": "$content:needs-assessment.questions.1.buttons.2.text"
+              },
+              {
+                "id": "goal-other",
+                "text": "$content:needs-assessment.questions.1.buttons.3.text"
+              }
+            ],
+            "content": "$content:needs-assessment.questions.1.content",
+            "required": true,
+            "responseType": "buttons"
+          },
+          {
+            "id": "q-team-size",
+            "buttons": [
+              {
+                "id": "team-solo",
+                "text": "$content:needs-assessment.questions.2.buttons.0.text"
+              },
+              {
+                "id": "team-small",
+                "text": "$content:needs-assessment.questions.2.buttons.1.text"
+              },
+              {
+                "id": "team-medium",
+                "text": "$content:needs-assessment.questions.2.buttons.2.text"
+              },
+              {
+                "id": "team-large",
+                "text": "$content:needs-assessment.questions.2.buttons.3.text"
+              }
+            ],
+            "content": "$content:needs-assessment.questions.2.content",
+            "required": true,
+            "responseType": "buttons"
+          }
+        ],
+        "tagAction": {
+          "tags": {
+            "add": [
+              "needs-assessed"
+            ]
+          }
+        },
+        "completion": {
+          "content": "$content:needs-assessment.completion.content",
+          "delayBeforeTransition": 2
+        },
+        "storeAllAs": "needsAssessment",
+        "introduction": {
+          "content": "$content:needs-assessment.introduction.content"
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Questionnaire demo: 3 questions to personalize onboarding experience",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-12-13T00:00:00.000Z",
+        "updatedAt": "2025-12-13T00:00:00.000Z"
+      },
+      "position": {
+        "x": 500,
+        "y": 950
+      }
+    },
+    {
+      "id": "plan-router",
+      "data": {
+        "type": "condition",
+        "label": "$content:plan-router.label",
+        "branches": [
+          {
+            "id": "basic",
+            "label": "$content:plan-router.branches.0.label",
+            "isDefault": true
+          },
+          {
+            "id": "pro",
+            "label": "$content:plan-router.branches.1.label"
+          },
+          {
+            "id": "enterprise",
+            "label": "$content:plan-router.branches.2.label"
+          }
+        ],
+        "expression": "selectedPlan && (selectedPlan.includes('Enterprise') || selectedPlan.includes('enterprise')) ? 'enterprise' : (selectedPlan && (selectedPlan.includes('Pro') || selectedPlan.includes('pro')) ? 'pro' : 'basic')"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Routes to plan-specific tips based on selectedPlan variable. Expression returns branch id directly.",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-12-13T00:00:00.000Z",
+        "updatedAt": "2025-12-13T00:00:00.000Z"
+      },
+      "position": {
+        "x": 500,
+        "y": 1250
+      }
+    },
+    {
+      "id": "basic-tips",
+      "data": {
+        "tags": [
+          "plan:basic",
+          "onboarding:tips"
+        ],
+        "type": "message",
+        "label": "$content:basic-tips.label",
+        "content": "$content:basic-tips.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "plan:basic",
+              "plan-selected",
+              "engaged"
+            ],
+            "remove": [
+              "awaiting-plan-selection",
+              "needs-nurturing",
+              "at-risk"
+            ]
+          }
+        },
+        "responseType": "auto",
+        "variableAction": {
+          "scope": "journey",
+          "operations": [
+            {
+              "op": "merge",
+              "key": "plan_selections",
+              "value": {
+                "basic": 1
+              }
+            }
+          ]
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Basic plan personalized tips. Tracks plan selection in journey variable.",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-11-28T00:00:00.000Z",
+        "updatedAt": "2025-11-28T00:00:00.000Z"
+      },
+      "position": {
+        "x": 150,
+        "y": 1500
+      }
+    },
+    {
+      "id": "pro-tips",
+      "data": {
+        "tags": [
+          "plan:pro",
+          "onboarding:tips"
+        ],
+        "type": "message",
+        "label": "$content:pro-tips.label",
+        "content": "$content:pro-tips.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "plan:pro",
+              "plan-selected",
+              "engaged"
+            ],
+            "remove": [
+              "awaiting-plan-selection",
+              "needs-nurturing",
+              "at-risk"
+            ]
+          }
+        },
+        "responseType": "auto",
+        "variableAction": {
+          "scope": "journey",
+          "operations": [
+            {
+              "op": "merge",
+              "key": "plan_selections",
+              "value": {
+                "pro": 1
+              }
+            }
+          ]
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Pro plan personalized tips. Tracks plan selection in journey variable.",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-11-28T00:00:00.000Z",
+        "updatedAt": "2025-11-28T00:00:00.000Z"
+      },
+      "position": {
+        "x": 500,
+        "y": 1500
+      }
+    },
+    {
+      "id": "enterprise-tips",
+      "data": {
+        "tags": [
+          "plan:enterprise",
+          "onboarding:tips",
+          "high-value"
+        ],
+        "type": "message",
+        "label": "$content:enterprise-tips.label",
+        "content": "$content:enterprise-tips.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "plan:enterprise",
+              "plan-selected",
+              "engaged",
+              "high-value"
+            ],
+            "remove": [
+              "awaiting-plan-selection",
+              "needs-nurturing",
+              "at-risk"
+            ]
+          }
+        },
+        "responseType": "auto",
+        "variableAction": {
+          "scope": "journey",
+          "operations": [
+            {
+              "op": "merge",
+              "key": "plan_selections",
+              "value": {
+                "enterprise": 1
+              }
+            }
+          ]
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Enterprise plan personalized tips with high-value tag. Tracks plan selection in journey variable.",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-11-28T00:00:00.000Z",
+        "updatedAt": "2025-11-28T00:00:00.000Z"
+      },
+      "position": {
+        "x": 850,
+        "y": 1500
+      }
+    },
+    {
+      "id": "feedback-request",
+      "data": {
+        "type": "message",
+        "label": "$content:feedback-request.label",
+        "timer": {
+          "seconds": 300
+        },
+        "content": "$content:feedback-request.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "feedback-requested"
+            ]
+          }
+        },
+        "responseType": "text",
+        "variableAction": {
+          "scope": "journey",
+          "operations": [
+            {
+              "op": "push",
+              "key": "feedback_responses",
+              "value": "{{context.userChallenge}}"
+            }
+          ]
+        },
+        "storeResponseAs": "userChallenge"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Text input demo: Captures user's main challenge in context.userChallenge. Pushes feedback to journey variable array.",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-11-29T00:00:00.000Z",
+        "updatedAt": "2025-11-29T00:00:00.000Z"
+      },
+      "position": {
+        "x": 500,
+        "y": 1750
+      }
+    },
+    {
+      "id": "plan-check",
+      "data": {
+        "type": "condition",
+        "label": "$content:plan-check.label",
+        "rules": [
+          {
+            "id": "rule-1",
+            "field": "session.tags",
+            "value": "plan:enterprise",
+            "operator": "contains"
+          }
+        ],
+        "branches": [
+          {
+            "id": "enterprise",
+            "label": "$content:plan-check.branches.0.label"
+          },
+          {
+            "id": "standard",
+            "label": "$content:plan-check.branches.1.label",
+            "isDefault": true
+          }
+        ],
+        "rulesOperator": "and"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Condition node: Routes Enterprise users to VIP experience. Expression converts tags array to string and checks for tag.",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-12-11T00:00:00.000Z",
+        "updatedAt": "2025-12-13T00:00:00.000Z"
+      },
+      "position": {
+        "x": 500,
+        "y": 2000
+      }
+    },
+    {
+      "id": "vip-experience",
+      "data": {
+        "type": "message",
+        "label": "$content:vip-experience.label",
+        "content": "$content:vip-experience.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "vip-welcomed",
+              "enterprise-track"
+            ]
+          }
+        },
+        "responseType": "auto"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "VIP welcome message for Enterprise users - personalized premium experience",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-12-11T00:00:00.000Z",
+        "updatedAt": "2025-12-11T00:00:00.000Z"
+      },
+      "position": {
+        "x": 250,
+        "y": 2250
+      }
+    },
+    {
+      "id": "setup-delay",
+      "data": {
+        "type": "wait",
+        "label": "$content:setup-delay.label",
+        "reason": "$content:setup-delay.reason",
+        "content": "$content:setup-delay.content",
+        "duration": {
+          "seconds": 86400
+        },
+        "tagAction": {
+          "tags": {
+            "add": [
+              "feedback-provided",
+              "exploring"
+            ]
+          }
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Wait node: 24-hour delay for user exploration",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-11-28T00:00:00.000Z",
+        "updatedAt": "2025-11-28T00:00:00.000Z"
+      },
+      "position": {
+        "x": 600,
+        "y": 2250
+      }
+    },
+    {
+      "id": "crm-sync",
+      "data": {
+        "url": "https://api.example.com/crm/users/{{user.id}}/engagement",
+        "auth": {
+          "type": "bearer",
+          "token": "{{secrets.CRM_API_TOKEN}}"
+        },
+        "body": "{\"userId\": \"{{user.id}}\", \"plan\": \"{{context.selectedPlan}}\", \"challenge\": \"{{context.userChallenge}}\", \"stage\": \"onboarding_complete\", \"engagementScore\": {{context.engagementScore}}, \"timestamp\": \"{{context.currentTime}}\"}",
+        "type": "webhook",
+        "label": "$content:crm-sync.label",
+        "method": "POST",
+        "content": "$content:crm-sync.content",
+        "headers": {
+          "X-Source": "journey-engine",
+          "Content-Type": "application/json"
+        },
+        "storeAs": "crmSyncId",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "crm-synced"
+            ],
+            "remove": [
+              "exploring"
+            ]
+          }
+        },
+        "timeoutMs": 10000,
+        "retryCount": 2,
+        "successPath": "$.data.syncId",
+        "mockResponse": {
+          "body": {
+            "data": {
+              "syncId": "sync_demo_12345",
+              "message": "User engagement synced successfully"
+            },
+            "success": true
+          },
+          "delay": 500,
+          "enabled": true,
+          "statusCode": 200
+        },
+        "errorHandling": "retry"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Webhook node: Sync engagement data to external CRM with mock enabled",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-11-28T00:00:00.000Z",
+        "updatedAt": "2025-11-28T00:00:00.000Z"
+      },
+      "position": {
+        "x": 500,
+        "y": 2500
+      }
+    },
+    {
+      "id": "conversion-offer",
+      "data": {
+        "type": "message",
+        "label": "$content:conversion-offer.label",
+        "timer": {
+          "seconds": 172800
+        },
+        "buttons": [
+          {
+            "id": "btn-upgrade",
+            "text": "$content:conversion-offer.buttons.0.text",
+            "targetNodeId": "converted"
+          },
+          {
+            "id": "btn-talk-sales",
+            "text": "$content:conversion-offer.buttons.1.text",
+            "targetNodeId": "converted"
+          },
+          {
+            "id": "btn-remind-later",
+            "text": "$content:conversion-offer.buttons.2.text",
+            "targetNodeId": "exit-graceful"
+          }
+        ],
+        "content": "$content:conversion-offer.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "offer-sent",
+              "conversion-pending"
+            ]
+          }
+        },
+        "responseType": "any",
+        "storeResponseAs": "conversionResponse"
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Conversion offer with 48-hour timer - accepts buttons OR text (any)",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-11-28T00:00:00.000Z",
+        "updatedAt": "2025-11-28T00:00:00.000Z"
+      },
+      "position": {
+        "x": 500,
+        "y": 2750
+      }
+    },
+    {
+      "id": "converted",
+      "data": {
+        "tags": [
+          "converted",
+          "customer"
+        ],
+        "type": "end",
+        "label": "$content:converted.label",
+        "content": "$content:converted.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "paying-customer",
+              "converted",
+              "onboarding-complete",
+              "customer-acquired",
+              "deal-won"
+            ],
+            "remove": [
+              "trial-user",
+              "trial-started",
+              "conversion-pending",
+              "offer-sent"
+            ]
+          }
+        },
+        "variableAction": {
+          "scope": "global",
+          "operations": [
+            {
+              "op": "increment",
+              "key": "total_conversions",
+              "amount": 1
+            }
+          ]
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Success end: User converted to paid customer. Increments global total_conversions counter.",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-11-28T00:00:00.000Z",
+        "updatedAt": "2025-11-28T00:00:00.000Z"
+      },
+      "position": {
+        "x": 300,
+        "y": 3000
+      }
+    },
+    {
+      "id": "exit-graceful",
+      "data": {
+        "tags": [
+          "churned",
+          "nurture"
+        ],
+        "type": "end",
+        "label": "$content:exit-graceful.label",
+        "content": "$content:exit-graceful.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "churned-user",
+              "nurture-candidate",
+              "graceful-exit",
+              "deal-lost"
+            ],
+            "remove": [
+              "trial-user",
+              "trial-started",
+              "conversion-pending",
+              "offer-sent"
+            ]
+          }
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Exit end: User chose not to continue",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-11-28T00:00:00.000Z",
+        "updatedAt": "2025-11-28T00:00:00.000Z"
+      },
+      "position": {
+        "x": 700,
+        "y": 3000
+      }
+    },
+    {
+      "id": "churned",
+      "data": {
+        "tags": [
+          "churned",
+          "dropoff",
+          "reactivation-eligible"
+        ],
+        "type": "end",
+        "label": "$content:churned.label",
+        "content": "$content:churned.content",
+        "tagAction": {
+          "tags": {
+            "add": [
+              "churned",
+              "dropoff",
+              "reactivation-eligible",
+              "inactive",
+              "deal-lost-inactive"
+            ],
+            "remove": [
+              "trial-started",
+              "at-risk",
+              "needs-nurturing"
+            ]
+          }
+        }
+      },
+      "type": "custom",
+      "metadata": {
+        "notes": "Dropoff end: User became inactive and churned",
+        "custom": {},
+        "status": "active",
+        "version": "1.0.0",
+        "createdAt": "2025-11-28T00:00:00.000Z",
+        "updatedAt": "2025-11-28T00:00:00.000Z"
+      },
+      "position": {
+        "x": -150,
+        "y": 1500
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-start-feature",
+      "label": "$content:e-start-feature.label",
+      "source": "start",
+      "target": "feature-intro",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "managed-btn::feature-intro::btn-basic-1",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "feature-intro",
+      "target": "saas-helper-agent",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-basic-1",
+      "sourceHandle": "btn-basic-1"
+    },
+    {
+      "id": "managed-btn::feature-intro::btn-pro-1",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "feature-intro",
+      "target": "saas-helper-agent",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-pro-1",
+      "sourceHandle": "btn-pro-1"
+    },
+    {
+      "id": "managed-btn::feature-intro::btn-enterprise-1",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "feature-intro",
+      "target": "saas-helper-agent",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-enterprise-1",
+      "sourceHandle": "btn-enterprise-1"
+    },
+    {
+      "id": "e-agent-assessment",
+      "label": "$content:e-agent-assessment.label",
+      "source": "saas-helper-agent",
+      "target": "needs-assessment",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "managed-btn::conversion-offer::btn-upgrade",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "conversion-offer",
+      "target": "converted",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-upgrade",
+      "sourceHandle": "btn-upgrade"
+    },
+    {
+      "id": "managed-btn::conversion-offer::btn-talk-sales",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "conversion-offer",
+      "target": "converted",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-talk-sales",
+      "sourceHandle": "btn-talk-sales"
+    },
+    {
+      "id": "managed-btn::conversion-offer::btn-remind-later",
+      "style": {
+        "stroke": "#22c55e",
+        "strokeWidth": 1.5
+      },
+      "source": "conversion-offer",
+      "target": "exit-graceful",
+      "managed": true,
+      "animated": false,
+      "edgeType": "default",
+      "managedBy": "button-btn-remind-later",
+      "sourceHandle": "btn-remind-later"
+    },
+    {
+      "id": "e-assessment-router",
+      "label": "$content:e-assessment-router.label",
+      "source": "needs-assessment",
+      "target": "plan-router",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-assessment-timeout",
+      "label": "$content:e-assessment-timeout.label",
+      "source": "needs-assessment",
+      "target": "churned",
+      "animated": false,
+      "edgeType": "timer",
+      "sourceHandle": "timer"
+    },
+    {
+      "id": "e-router-basic",
+      "label": "$content:e-router-basic.label",
+      "source": "plan-router",
+      "target": "basic-tips",
+      "animated": false,
+      "edgeType": "default",
+      "sourceHandle": "basic"
+    },
+    {
+      "id": "e-router-pro",
+      "label": "$content:e-router-pro.label",
+      "source": "plan-router",
+      "target": "pro-tips",
+      "animated": false,
+      "edgeType": "default",
+      "sourceHandle": "pro"
+    },
+    {
+      "id": "e-router-enterprise",
+      "label": "$content:e-router-enterprise.label",
+      "style": {
+        "stroke": "#a855f7",
+        "strokeWidth": 2
+      },
+      "source": "plan-router",
+      "target": "enterprise-tips",
+      "animated": false,
+      "edgeType": "default",
+      "sourceHandle": "enterprise"
+    },
+    {
+      "id": "e-basic-feedback",
+      "label": "$content:e-basic-feedback.label",
+      "source": "basic-tips",
+      "target": "feedback-request",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-pro-feedback",
+      "label": "$content:e-pro-feedback.label",
+      "source": "pro-tips",
+      "target": "feedback-request",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-enterprise-feedback",
+      "label": "$content:e-enterprise-feedback.label",
+      "source": "enterprise-tips",
+      "target": "feedback-request",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-feedback-plan-check",
+      "label": "$content:e-feedback-plan-check.label",
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "source": "feedback-request",
+      "target": "plan-check",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-feedback-timer",
+      "label": "$content:e-feedback-timer.label",
+      "source": "feedback-request",
+      "target": "plan-check",
+      "animated": false,
+      "edgeType": "timer",
+      "sourceHandle": "timer"
+    },
+    {
+      "id": "e-plan-check-enterprise",
+      "label": "$content:e-plan-check-enterprise.label",
+      "style": {
+        "stroke": "#a855f7",
+        "strokeWidth": 2
+      },
+      "source": "plan-check",
+      "target": "vip-experience",
+      "animated": false,
+      "edgeType": "default",
+      "sourceHandle": "enterprise"
+    },
+    {
+      "id": "e-plan-check-standard",
+      "label": "$content:e-plan-check-standard.label",
+      "source": "plan-check",
+      "target": "setup-delay",
+      "animated": false,
+      "edgeType": "default",
+      "sourceHandle": "standard"
+    },
+    {
+      "id": "e-vip-setup-delay",
+      "label": "$content:e-vip-setup-delay.label",
+      "style": {
+        "stroke": "#a855f7",
+        "strokeWidth": 2
+      },
+      "source": "vip-experience",
+      "target": "setup-delay",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-wait-webhook",
+      "label": "$content:e-wait-webhook.label",
+      "source": "setup-delay",
+      "target": "crm-sync",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-webhook-offer",
+      "label": "$content:e-webhook-offer.label",
+      "source": "crm-sync",
+      "target": "conversion-offer",
+      "animated": false,
+      "edgeType": "success",
+      "sourceHandle": "success"
+    },
+    {
+      "id": "e-webhook-error",
+      "label": "$content:e-webhook-error.label",
+      "source": "crm-sync",
+      "target": "conversion-offer",
+      "animated": false,
+      "edgeType": "retry",
+      "sourceHandle": "error"
+    },
+    {
+      "id": "e-offer-text-response",
+      "label": "$content:e-offer-text-response.label",
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "source": "conversion-offer",
+      "target": "converted",
+      "animated": false,
+      "edgeType": "default"
+    },
+    {
+      "id": "e-offer-exit",
+      "label": "$content:e-offer-exit.label",
+      "source": "conversion-offer",
+      "target": "exit-graceful",
+      "animated": false,
+      "edgeType": "exit",
+      "sourceHandle": "timer"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "voice-director-v2",
+  "description": "Technical Script Editor for ElevenLabs v2/Turbo - uses SSML <break>, <phoneme> for precision (NO brackets)",
+  "type": "chat",
+  "tags": ["voice", "tts", "system", "elevenlabs", "v2", "ssml"],
+  "isSystem": true,
+  "scope": "global"
+}

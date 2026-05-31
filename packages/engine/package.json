@@ -1,0 +1,54 @@
+{
+  "name": "@journey/engine",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./testing": "./src/testing/index.ts",
+    "./validation/journey-validator": "./src/validation/journey-validator.ts"
+  },
+  "bin": {
+    "blade-runner": "./bin/blade-runner.ts",
+    "journey-test": "./bin/blade-runner.ts"
+  },
+  "scripts": {
+    "blade-runner": "tsx bin/blade-runner.ts",
+    "journey-test": "tsx bin/blade-runner.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "NODE_ENV=test vitest run --exclude='**/{chaos,property-based}.test.ts'",
+    "test:core": "NODE_ENV=test vitest run src/__tests__/bindings-context.test.ts src/__tests__/condition-evaluator.test.ts src/__tests__/expression-service.test.ts src/__tests__/handlers.test.ts src/__tests__/mindstate-analysis.test.ts src/__tests__/node-outputs.test.ts src/__tests__/session-engine.integration.test.ts src/__tests__/template-service.test.ts src/__tests__/timer-service.test.ts src/__tests__/utils.test.ts src/__tests__/validation.test.ts src/__tests__/variable-service.test.ts src/__tests__/webhook-executor.test.ts",
+    "test:slow": "NODE_ENV=test vitest run src/__tests__/comprehensive src/__tests__/chaos.test.ts src/__tests__/property-based.test.ts src/__tests__/failure-scenarios.test.ts",
+    "test:comprehensive": "NODE_ENV=test vitest run src/__tests__/comprehensive",
+    "test:validation": "NODE_ENV=test vitest run src/__tests__/validation.test.ts",
+    "test:fuzzy": "NODE_ENV=test vitest run src/__tests__/property-based.test.ts",
+    "test:chaos": "NODE_ENV=test vitest run src/__tests__/chaos.test.ts",
+    "test:fuzzy:all": "NODE_ENV=test vitest run src/__tests__/property-based.test.ts src/__tests__/chaos.test.ts src/__tests__/validation.test.ts",
+    "test:questionnaire": "NODE_ENV=test vitest run src/__tests__/questionnaire.integration.test.ts",
+    "test:followup": "NODE_ENV=test vitest run src/__tests__/follow-up.integration.test.ts",
+    "test:followup-plugin": "NODE_ENV=test vitest run src/__tests__/follow-up-plugin.integration.test.ts",
+    "test:watch": "NODE_ENV=test vitest watch",
+    "test:coverage": "NODE_ENV=test vitest run --coverage"
+  },
+  "dependencies": {
+    "@journey/infra": "workspace:*",
+    "@journey/llm": "workspace:*",
+    "@journey/logger": "workspace:*",
+    "@journey/schemas": "workspace:*",
+    "jexl": "^2.3.0",
+    "jsonpath-plus": "^10.3.0",
+    "p-limit": "^6.2.0",
+    "zod": "^4.2.1"
+  },
+  "devDependencies": {
+    "@inquirer/prompts": "^7.10.1",
+    "@types/node": "^22.19.3",
+    "chalk": "^5.6.2",
+    "dotenv": "^17.2.3",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.3",
+    "vitest": "^1.6.1"
+  }
+}

@@ -1,0 +1,11 @@
+# Allow to see envs files as this is safe dev enviroment.
+!.env.example
+!.env
+
+# Allow to see examples
+!shadcn-admin-1.0.0
+!code-examples
+
+# Allow logs and journey log
+!apps/api/logs/\*
+!journey.log
