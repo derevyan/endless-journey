@@ -1,6 +1,6 @@
 # @journey/logger
 
-Structured logging using Consola with consistent formatting across all packages.
+Structured logging using Pino with consistent formatting across all packages.
 
 ## Overview
 
@@ -227,4 +227,4 @@ packages/logger/src/
 ## See Also
 
 - [Engine Logging](../engine/README.md#logging)
-- [Consola Documentation](https://github.com/unjs/consola)
+- [Pino Documentation](https://github.com/pinojs/pino)

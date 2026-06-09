@@ -4,29 +4,31 @@ This guide will help you get the Journey Builder running locally for development
 
 ## Prerequisites
 
-- **Node.js** 18+
-- **pnpm** 9+
-- **Docker** (for PostgreSQL and Redis)
+- **Node.js** 22+
+- **pnpm** 10+
+- **Docker** (for PostgreSQL, Redis, and MinIO)
+
+> Journey runs on Node.js — the API and MCP services execute TypeScript directly with `tsx`, so there's no separate build step in dev.
 
 ## 1. Start Infrastructure
 
-Start PostgreSQL and Redis using Docker Compose:
+Start PostgreSQL, Redis, and MinIO using Docker Compose:
 
 ```bash
-cd service/docker
-docker-compose up -d
+docker compose -f service/docker/docker-compose.yml up -d
 ```
 
 Verify containers are running:
 
 ```bash
-docker-compose ps
+docker compose -f service/docker/docker-compose.yml ps
 ```
 
 You should see:
 
-- `journey-postgres` on port 5432
+- `journey-postgres` on port 5432 (PostgreSQL 18 + pgvector)
 - `journey-redis` on port 6379
+- `journey-minio` on port 9000 (S3-compatible object storage)
 
 ## 2. Install Dependencies
 
@@ -38,64 +40,43 @@ pnpm install
 
 ## 3. Configure Environment
 
-Create environment files for each package that needs them:
+Each app/package that needs config ships a `.env.example` with inline hints. Copy them and fill in the blanks:
 
-### API (`apps/api/.env`)
-
-```env
-# Database
-DATABASE_URL=postgres://journey:journey_dev@localhost:5432/journey
-
-# Redis (for BullMQ timer service)
-REDIS_URL=redis://localhost:6379
-
-# Better Auth - Secret key for session encryption (minimum 32 characters)
-# Generate with: openssl rand -base64 32
-BETTER_AUTH_SECRET=journey-dev-secret-change-in-production-min-32-chars
-
-# URLs
-FRONTEND_URL=http://localhost:3000
-PORT=3001
-
-# Environment
-NODE_ENV=development
-LOG_LEVEL=trace
+```bash
+cp apps/api/.env.example apps/api/.env
+cp packages/db/.env.example packages/db/.env
+cp apps/web/.env.example apps/web/.env
+cp apps/mcp/.env.example apps/mcp/.env   # optional — only if customizing the MCP service
 ```
 
-### Database (`packages/db/.env`)
+The defaults work out-of-the-box against the Docker services above. The values you'll most likely need to set:
 
-```env
-# PostgreSQL Connection
-DATABASE_URL=postgres://journey:journey_dev@localhost:5432/journey
-```
+| File               | Variable                                                                                    | Notes                                                                       |
+| ------------------ | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `apps/api/.env`    | `BETTER_AUTH_SECRET`                                                                        | 32+ chars. Generate: `openssl rand -base64 32`. Required to start.          |
+| `apps/api/.env`    | `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GEMINI_API_KEY`, `GROQ_API_KEY`, `CEREBRAS_API_KEY` | LLM providers — set the ones you plan to use.                               |
+| `apps/api/.env`    | `ELEVENLABS_API_KEY`                                                                        | Optional — for voice / text-to-speech.                                      |
+| `apps/api/.env`    | `TAVILY_API_KEY`                                                                            | Optional — for the agent web-search tool.                                   |
+| `apps/api/.env`    | `WEBHOOK_BASE_URL`                                                                          | Public HTTPS URL for Telegram webhooks (see ngrok below).                   |
+| `apps/api/.env`    | `MINIO_ENDPOINT`, `MINIO_ACCESS_KEY`, `MINIO_SECRET_KEY`, `MINIO_BUCKET`                    | Media storage — defaults match the Docker MinIO service.                    |
+| `packages/db/.env` | `ENCRYPTION_KEY`                                                                            | 32-byte key for encrypting stored secrets (e.g. bot tokens). See file hint. |
+| `apps/web/.env`    | `VITE_API_URL`                                                                              | Backend API URL (default `http://localhost:3001`).                          |
 
-### Web Frontend (`apps/web/.env`)
-
-```env
-# Backend API URL
-VITE_API_URL=http://localhost:3001
-
-# Logging (optional)
-VITE_LOG_LEVEL=debug
-```
+> `apps/api/.env` also has an `ALLOW_MOCK_AUTH` flag for bypassing auth in local dev via an `X-Mock-User-Id` header. **Never enable it in production or staging.**
 
 ## 4. Setup Database
 
-Push the database schema:
+Reset the schema and seed demo data (mock users + default journeys) in one step:
 
 ```bash
-pnpm --filter @journey/db push
+pnpm db:reset-full
 ```
 
-Seed with demo data (mock users + default journeys):
-
-```bash
-pnpm --filter @journey/db seed
-```
+> Prefer `db:reset-full` over manual migrations during development — it drops, recreates, and reseeds a clean database. For a non-destructive schema push you can use `pnpm db:push` followed by `pnpm db:seed`.
 
 ## 5. Start Development Servers
 
-Start both frontend and API:
+Start everything (web, API, and MCP service) with Turborepo:
 
 ```bash
 pnpm dev
@@ -104,11 +85,9 @@ pnpm dev
 Or start them separately:
 
 ```bash
-# Terminal 1: API (port 3001)
-pnpm --filter @journey/api dev
-
-# Terminal 2: Frontend (port 3000)
-pnpm --filter @journey/web dev
+pnpm dev:api   # API       (port 3001)
+pnpm dev:web   # Frontend  (port 3000)
+pnpm dev:mcp   # MCP tools (port 3002)
 ```
 
 ## 6. Access the Application
@@ -116,18 +95,16 @@ pnpm --filter @journey/web dev
 - **Frontend**: http://localhost:3000
 - **API**: http://localhost:3001
 - **API Health**: http://localhost:3001/health
+- **MCP Service**: http://localhost:3002
 - **Settings Page**: http://localhost:3000/settings
 
-**Note**: Both development (`pnpm dev`) and production preview (`pnpm preview`) modes use port 3000 for the web app and 3001 for the API.
+**Note**: Both development (`pnpm dev`) and production preview (`pnpm preview`) modes use port 3000 for the web app, 3001 for the API, and 3002 for the MCP service.
 
 ## Demo Users
 
-After seeding the database with journeys, create demo users via the API:
+`pnpm db:reset-full` seeds the demo users below. If you need to (re)create them manually, sign up through the web UI at http://localhost:3000, or call the API:
 
 ```bash
-# Start the API server first
-pnpm dev
-
 # Create Demo User
 curl -X POST http://localhost:3001/api/auth/sign-up/email \
   -H "Content-Type: application/json" \
@@ -138,8 +115,6 @@ curl -X POST http://localhost:3001/api/auth/sign-up/email \
   -H "Content-Type: application/json" \
   -d '{"email": "arina@journey.app", "password": "arina1234", "name": "Arina"}'
 ```
-
-Or simply sign up through the web UI at http://localhost:3000.
 
 | User      | Email             | Password  |
 | --------- | ----------------- | --------- |
@@ -162,7 +137,7 @@ The app includes a user switcher in the header for testing multi-tenant features
 
 1. Log in to the app at http://localhost:3000
 2. Click your user menu → **Settings**
-3. Go to **Connected Accounts** section
+3. Go to the **Channels** section
 4. Click **Connect** on Telegram
 5. Paste your bot token
 6. Select a default journey for the bot
@@ -215,11 +190,17 @@ If you see "Timer service failed to initialize", check your Redis connection.
 # Type checking
 pnpm typecheck
 
+# Lint the web app (CI enforces --max-warnings 0)
+pnpm --filter @journey/web lint
+
 # Run tests
 pnpm test
 
 # Run only unit tests
 pnpm test:unit
+
+# Test journey paths against real flow files (fast)
+pnpm blade-runner apps/web/src/data/journeys/saas-onboarding/journey.json --thorough
 
 # View Drizzle Studio (database GUI)
 pnpm --filter @journey/db studio
@@ -238,7 +219,7 @@ pnpm build
 Make sure PostgreSQL is running:
 
 ```bash
-docker-compose -f service/docker/docker-compose.yml ps
+docker compose -f service/docker/docker-compose.yml ps
 ```
 
 Check connection:
@@ -257,56 +238,70 @@ docker exec -it journey-redis redis-cli ping
 
 Should return `PONG`.
 
+### MinIO / Media Uploads Not Working
+
+Make sure MinIO is running and reachable:
+
+```bash
+curl -f http://localhost:9000/minio/health/live
+```
+
 ### Port Already in Use
 
 ```bash
-# Find process using port 3000
+# Find process using a port (3000 web · 3001 api · 3002 mcp)
 lsof -i :3000
-
-# Find process using port 3001
-lsof -i :3001
 ```
 
 ### Reset Database
 
 ```bash
-# Stop containers and remove volumes
-cd service/docker
-docker-compose down -v
+# Drop, recreate, and reseed in one step
+pnpm db:reset-full
+```
 
-# Start fresh
-docker-compose up -d
+To wipe Docker volumes entirely and start fresh:
 
-# Re-push schema and seed
-pnpm --filter @journey/db push
-pnpm --filter @journey/db seed
+```bash
+docker compose -f service/docker/docker-compose.yml down -v
+docker compose -f service/docker/docker-compose.yml up -d
+pnpm db:reset-full
 ```
 
 ---
 
 ## Environment Variables Reference
 
+The authoritative reference is each `.env.example` file (with inline comments). The most important variables:
+
 ### API (`apps/api/.env`)
 
-| Variable             | Required | Default                  | Description                        |
-| -------------------- | -------- | ------------------------ | ---------------------------------- |
-| `DATABASE_URL`       | Yes      | -                        | PostgreSQL connection string       |
-| `REDIS_URL`          | Yes      | `redis://localhost:6379` | Redis connection for BullMQ        |
-| `BETTER_AUTH_SECRET` | Yes      | -                        | Session encryption key (32+ chars) |
-| `FRONTEND_URL`       | No       | `http://localhost:3000`  | Frontend URL for CORS              |
-| `PORT`               | No       | `3001`                   | API server port                    |
-| `NODE_ENV`           | No       | `development`            | Environment mode                   |
-| `LOG_LEVEL`          | No       | `20`                     | Log level (0-5)                    |
+| Variable                                                                                        | Required | Default                  | Description                                       |
+| ----------------------------------------------------------------------------------------------- | -------- | ------------------------ | ------------------------------------------------- |
+| `DATABASE_URL`                                                                                  | Yes      | -                        | PostgreSQL connection string                      |
+| `REDIS_URL`                                                                                     | Yes      | `redis://localhost:6379` | Redis for BullMQ, session cache, rate limiting    |
+| `BETTER_AUTH_SECRET`                                                                            | Yes      | -                        | Session encryption key (32+ chars)                |
+| `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` / `GEMINI_API_KEY` / `GROQ_API_KEY` / `CEREBRAS_API_KEY` | No       | -                        | LLM provider keys (set the ones you use)          |
+| `ELEVENLABS_API_KEY`                                                                            | No       | -                        | Voice / text-to-speech                            |
+| `TAVILY_API_KEY`                                                                                | No       | -                        | Agent web-search tool                             |
+| `MINIO_ENDPOINT` / `MINIO_ACCESS_KEY` / `MINIO_SECRET_KEY` / `MINIO_BUCKET`                     | No       | MinIO Docker defaults    | Media storage (S3-compatible)                     |
+| `WEBHOOK_BASE_URL`                                                                              | No       | -                        | Public HTTPS base for Telegram webhooks           |
+| `FRONTEND_URL`                                                                                  | No       | `http://localhost:3000`  | Frontend URL for CORS                             |
+| `PORT`                                                                                          | No       | `3001`                   | API server port                                   |
+| `NODE_ENV`                                                                                      | No       | `development`            | Environment mode                                  |
+| `LOG_LEVEL`                                                                                     | No       | `info`                   | Pino level: `trace`/`debug`/`info`/`warn`/`error` |
+| `ALLOW_MOCK_AUTH`                                                                               | No       | `false`                  | Dev-only auth bypass — never enable in production |
 
 ### Database (`packages/db/.env`)
 
-| Variable       | Required | Default | Description                  |
-| -------------- | -------- | ------- | ---------------------------- |
-| `DATABASE_URL` | Yes      | -       | PostgreSQL connection string |
+| Variable         | Required | Default | Description                               |
+| ---------------- | -------- | ------- | ----------------------------------------- |
+| `DATABASE_URL`   | Yes      | -       | PostgreSQL connection string              |
+| `ENCRYPTION_KEY` | Yes      | -       | 32-byte key for encrypting stored secrets |
 
 ### Web (`apps/web/.env`)
 
-| Variable         | Required | Default                 | Description                     |
-| ---------------- | -------- | ----------------------- | ------------------------------- |
-| `VITE_API_URL`   | No       | `http://localhost:3001` | Backend API URL                 |
-| `VITE_LOG_LEVEL` | No       | `4` (dev) / `3` (prod)  | Log level (0=silent, 5=verbose) |
+| Variable         | Required | Default                 | Description                        |
+| ---------------- | -------- | ----------------------- | ---------------------------------- |
+| `VITE_API_URL`   | No       | `http://localhost:3001` | Backend API URL                    |
+| `VITE_LOG_LEVEL` | No       | `info`                  | Client log level (`trace`…`error`) |

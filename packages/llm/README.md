@@ -1,6 +1,6 @@
 # @journey/llm
 
-LLM service integration with multi-provider support (OpenAI, Anthropic, Google, Groq), agent execution engine, middleware system, and MCP tool integration.
+LLM service integration with multi-provider support (OpenAI, Anthropic, Google/Gemini, Groq, Cerebras), agent execution engine, middleware system, and MCP tool integration.
 
 ## Documentation
 

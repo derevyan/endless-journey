@@ -14,6 +14,7 @@
 | `@journey/llm`       | `packages/llm`       | LLM abstractions                            | langchain, db, infra, mcp, schemas, logger |
 | `@journey/engine-integrations` | `packages/engine-integrations` | Engine adapters (DB/LLM)            | db, engine, llm, schemas, logger |
 | `@journey/mindstate` | `packages/mindstate` | ECS psychology tracking                     | llm, schemas, logger       |
+| `@journey/ai-report` | `packages/ai-report` | AI-optimized session execution reports      | db, schemas, logger        |
 | `@journey/engine`    | `packages/engine`    | Journey execution (core runtime)            | infra, schemas, logger |
 | `@journey/api`       | `apps/api`           | REST API server                             | db, engine, engine-integrations, infra, llm, mcp, mindstate, schemas, logger |
 | `@journey/mcp-service` | `apps/mcp`         | MCP service                                 | mcp, logger                |
@@ -34,7 +35,8 @@
 ├─────────────────────────────────────────────────────────────────┤
 │  Level 4: BUSINESS LOGIC                                         │
 │  ├── @journey/engine                                             │
-│  └── @journey/mindstate                                          │
+│  ├── @journey/mindstate                                          │
+│  └── @journey/ai-report                                          │
 ├─────────────────────────────────────────────────────────────────┤
 │  Level 3: INTEGRATIONS                                           │
 │  ├── @journey/llm                                                │
@@ -66,6 +68,7 @@ graph TD
     subgraph "Level 4: Business Logic"
         ENGINE["@journey/engine<br/>Session Engine"]
         MIND["@journey/mindstate<br/>ECS Pipeline"]
+        AIREP["@journey/ai-report<br/>Session reports"]
     end
 
     subgraph "Level 3: Integrations"
@@ -93,6 +96,7 @@ graph TD
 
     API --> ENGINE
     API --> ENG_INT
+    API --> AIREP
     API --> MIND
     API --> LLM
     API --> MCP
@@ -117,6 +121,10 @@ graph TD
     MIND --> LLM
     MIND --> LOG
     MIND --> SCHEMAS
+
+    AIREP --> DB
+    AIREP --> LOG
+    AIREP --> SCHEMAS
 
     LLM --> DB
     LLM --> INFRA
@@ -719,6 +727,18 @@ type HandlerResult =
 
 ---
 
+### @journey/ai-report
+
+**Purpose:** Generates AI-optimized execution reports for journey sessions — structured summaries of conversation, node transitions, decisions, variables, performance, and CRM/HITL activity. Consumed by external AI (Claude/GPT) and internal automated checks.
+
+**Location:** `packages/ai-report/src/`
+
+**Entry Points:** `@journey/ai-report`, `@journey/ai-report/schemas`, `@journey/ai-report/builders`, `@journey/ai-report/analyzers`
+
+**Docs:** `docs/ai-report/README.md`
+
+---
+
 ## Known Issues Reference
 
 > **Note:** Detailed issue tracking has been moved to [proposals/](../proposals/README.md). Below is a summary of package-related issues.
@@ -752,6 +772,7 @@ type HandlerResult =
 | `@journey/llm`       | db, infra, logger, mcp, schemas |
 | `@journey/engine-integrations` | db, engine, llm, logger, schemas |
 | `@journey/mindstate` | llm, logger, schemas     |
+| `@journey/ai-report` | db, logger, schemas      |
 | `@journey/engine`    | infra, logger, schemas |
 | `@journey/api`       | ALL packages             |
 | `@journey/web`       | engine, logger, schemas  |
