@@ -1,14 +1,6 @@
 # Journey
 
-> ## ⚠️ Heads up — read before using
->
-> I built this **for my wife, for fun**. It's heavily _vibe-coded_ (AI-assisted,
-> fast-and-loose) and shared **as-is** under the MIT license. It is **not**
-> production-hardened: expect rough edges, sharp corners, and missing safeguards.
->
-> **Use at your own risk.** Don't point it at real user data or secrets you care
-> about, and review the code before deploying anything. No warranty, no support.
-> Made with 💛.
+![Journey — build automated chat flows visually, then test them in a live simulator](docs/screenshots/simulator.png)
 
 Journey is a no-code platform for building, simulating, and running **automated chat flows** — drag-and-drop conversations powered by AI agents and delivered over messaging channels like Telegram. Design a flow visually, test it in a live simulator, then let the runtime engine execute it for real users.
 
@@ -83,10 +75,6 @@ Compose conversations on a canvas from typed, drag-and-drop nodes:
 **Flow builder** — drag-and-drop nodes (message, AI agent, condition, webhook, timer, questionnaire…) wired into branching conversations:
 
 ![Flow builder](docs/screenshots/journey-builder.png)
-
-**Simulator** — test a flow in a live chat with a real-time event console:
-
-![Simulator](docs/screenshots/simulator.png)
 
 |        Agent builder — multi-agent workflows         |  MindState — mood / focus / stress tracking  |
 | :--------------------------------------------------: | :------------------------------------------: |
@@ -245,6 +233,18 @@ Start here:
 - docs/llm/README.md
 - docs/mcp/README.md
 - docs/deploy/production-deployment.md
+
+---
+
+> ## ⚠️ Heads up — read before using
+>
+> I built this **for my wife, for fun**. It's heavily _vibe-coded_ (AI-assisted,
+> fast-and-loose) and shared **as-is** under the MIT license. It is **not**
+> production-hardened: expect rough edges, sharp corners, and missing safeguards.
+>
+> **Use at your own risk.** Don't point it at real user data or secrets you care
+> about, and review the code before deploying anything. No warranty, no support.
+> Made with 💛.
 
 ## License
 
