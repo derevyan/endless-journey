@@ -1,5 +1,7 @@
 # Journey
 
+_Built for my wife 💛 — and built by pushing AI coding agents about as hard as they'll go. One developer, ~3 months, one very ambitious experiment._
+
 ![Journey — build automated chat flows visually, then test them in a live simulator](docs/screenshots/simulator.png)
 
 Journey is a no-code platform for building, simulating, and running **automated chat flows** — drag-and-drop conversations powered by AI agents and delivered over messaging channels like Telegram. Design a flow visually, test it in a live simulator, then let the runtime engine execute it for real users.
