@@ -72,9 +72,9 @@ Compose conversations on a canvas from typed, drag-and-drop nodes:
 
 ## Screenshots
 
-**Flow builder** — drag-and-drop nodes (message, AI agent, condition, webhook, timer, questionnaire…) wired into branching conversations:
-
-![Flow builder](docs/screenshots/journey-builder.png)
+|       Flow builder — drag-and-drop node canvas        |          Flow library — your active flows          |
+| :---------------------------------------------------: | :------------------------------------------------: |
+| ![Flow builder](docs/screenshots/journey-builder.png) | ![Flow library](docs/screenshots/journey-list.png) |
 
 |        Agent builder — multi-agent workflows         |  MindState — mood / focus / stress tracking  |
 | :--------------------------------------------------: | :------------------------------------------: |
@@ -87,10 +87,6 @@ Compose conversations on a canvas from typed, drag-and-drop nodes:
 |        Dashboard — workspace overview        | Users — audience & Telegram contacts |
 | :------------------------------------------: | :----------------------------------: |
 | ![Dashboard](docs/screenshots/dashboard.png) | ![Users](docs/screenshots/users.png) |
-
-|          Flow library — your active flows          |
-| :------------------------------------------------: |
-| ![Flow library](docs/screenshots/journey-list.png) |
 
 ## Tech stack
 
